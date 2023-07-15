@@ -5,9 +5,7 @@ module.exports = {
   ],
   theme: {
     fontFamily:{
-      HelveticaRegular:['HelveticaRegular'],
-      HelveticaBold:['HelveticaBold'],
-      HelveticaLight:['HelveticaLight'],
+      OpenSansRegular:['Prompt', 'sans-serif']
     },
     extend: {},
   },

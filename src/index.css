@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 
-@font-face {
+/* @font-face {
   font-family: "HelveticaRegular";
   src: local("HelveticaRegular"),
    url("./fonts/Helvetica/helvetica_regular.otf") format("truetype");
@@ -22,11 +22,16 @@
   src: local("HelveticaLight"),
    url("./fonts/Helvetica/helvetica_light.otf") format("truetype");
   font-weight: normal;
-}
+} */
+
 
 
 *{
   margin: 0;
   padding: 0;
-  font-family: "HelveticaRegular";
+  font-family: 'Open Sans', sans-serif;
+}
+
+body{
+  min-width: 280px;
 }
