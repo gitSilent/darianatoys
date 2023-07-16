@@ -12,7 +12,7 @@ export default function Main() {
     <div>
         <Header/>
         <main>
-          <div className='w-full h-[372px] relative md:h-[572px]'>
+          <div className='w-full h-[672px] relative md:h-[572px]'>
             <span className='absolute z-20 font-bold text-white text-6xl top-2/4 px-4 md:text-8xl'>МАГИЯ <br/> КРЮЧКОМ</span>
             <div className='absolute left-0 top-0 w-full h-full z-10 bg-black/70'></div>
             <img className='absolute left-0 top-0 w-full h-full z-0 object-cover' src={main_bg} alt="" />

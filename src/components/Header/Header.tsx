@@ -6,7 +6,7 @@ import Menu from './Menu/Menu'
 export default function Header() {
   return (
     <>
-    <div className='flex justify-between fixed top-0 left-0 z-40 h-fit bg-white w-full'>
+    <div className='flex justify-between fixed top-0 left-0 z-40 h-fit bg-white w-full '>
         {/* Блок контента для отображения на мобильных устройствах */}
         
         <Menu/>
@@ -50,7 +50,7 @@ export default function Header() {
                     <Link className='font-bold text-2xl hover:text-gray-600' to={'/about'}>О нас</Link>
                 </li>
                 <li>
-                    <span className='font-bold text-2xl hover:cursor-pointer hover:text-gray-600'>Обратная связь</span>
+                    <Link className='font-bold text-2xl hover:text-gray-600' to={'/feedback'}>Обратная связь</Link>
                 </li>
             </ul>
             <div className='flex gap-10 items-center'>

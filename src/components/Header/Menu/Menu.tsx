@@ -37,9 +37,11 @@ export default function Menu() {
                         О нас
                     </li>
                 </Link>
-                <li className='border-y border-gray-700 py-5 w-full pl-3 hover:bg-slate-700'>
-                    <span className='font-semibold text-2xl text-gray-200 hover:cursor-pointer'>Обратная связь</span>
-                </li>
+                <Link className='font-semibold text-2xl text-gray-200' to={'/feedback'}>
+                    <li className='border-y border-gray-700 py-5 w-full pl-3 hover:bg-slate-700'>
+                        <span className='font-semibold text-2xl text-gray-200 hover:cursor-pointer'>Обратная связь</span>
+                    </li>
+                </Link>
             </ul>
         
         </div>
