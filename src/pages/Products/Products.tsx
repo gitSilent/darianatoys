@@ -7,7 +7,7 @@ export default function Products() {
   return (
     <div className='pt-[78px]'>
       <Header/>
-      <h2 className='font-bold m-auto w-fit text-xl pt-16'>Товары</h2>
+      <h2 className='font-bold m-auto w-fit text-xl lg:pt-16'>Товары</h2>
       <div className='mt-11 px-3 flex flex-col gap-5 items-center lg:flex-row lg:flex-wrap lg:gap-5 lg:justify-center'>
         <ProductCard img="" desc="Плюшевый медведь" price="1500"/>
         <ProductCard img="" desc="Плюшевый медведь" price="1500"/>

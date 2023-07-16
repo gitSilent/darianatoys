@@ -22,15 +22,21 @@ export default function Menu() {
 
            
             <ul className='flex flex-col mt-20 '> 
-                <li className='border-y border-gray-700 py-5 w-full pl-3 hover:bg-slate-700'>
-                    <Link className='font-semibold text-2xl text-gray-200' to={'/'}>Главная</Link>
-                </li>
-                <li className='border-gray-700 py-5 w-full pl-3 hover:bg-slate-700'>
-                    <Link className='font-semibold text-2xl text-gray-200' to={'/products'}>Товары</Link>
-                </li>
-                <li className='border-t border-gray-700 py-5 w-full pl-3 hover:bg-slate-700'>
-                    <Link className='font-semibold text-2xl text-gray-200' to={'/about'}>О нас</Link>
-                </li>
+                <Link className='font-semibold text-2xl text-gray-200' to={'/'}>
+                    <li className='border-y border-gray-700 py-5 w-full pl-3 hover:bg-slate-700'>
+                        Главная
+                    </li>
+                </Link>
+                <Link className='font-semibold text-2xl text-gray-200' to={'/products'}>
+                    <li className='border-gray-700 py-5 w-full pl-3 hover:bg-slate-700'>
+                        Товары
+                    </li>
+                </Link>
+                <Link className='font-semibold text-2xl text-gray-200' to={'/about'}>
+                    <li className='border-t border-gray-700 py-5 w-full pl-3 hover:bg-slate-700'>
+                        О нас
+                    </li>
+                </Link>
                 <li className='border-y border-gray-700 py-5 w-full pl-3 hover:bg-slate-700'>
                     <span className='font-semibold text-2xl text-gray-200 hover:cursor-pointer'>Обратная связь</span>
                 </li>
