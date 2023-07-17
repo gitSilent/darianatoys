@@ -11,6 +11,7 @@ import About from './pages/About/About';
 import ShoppingCart from './pages/ShoppingCart/ShoppingCart';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import Feedback from './pages/Feedback/Feedback';
+import Profile from './pages/Profile/Profile';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,11 @@ const router = createBrowserRouter([
   {
     path: "/feedback",
     element: <Feedback/> ,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: "/profile",
+    element: <Profile/> ,
     errorElement: <ErrorPage/>
   },
 ]);
