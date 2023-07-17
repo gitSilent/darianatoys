@@ -4,9 +4,9 @@ import Footer from '../../components/Footer'
 
 export default function Feedback() {
   return (
-    <div className='pt-[78px] relative h-[100vh]'>
+    <div className=''>
       <Header/>
-      <div className=''>
+      <div className='pt-[78px] relative h-[100vh]'>
         <h2 className='pt-8 font-bold m-auto w-fit text-4xl lg:pt-16'>Свяжитесь с нами</h2>
         <form className='mt-11 px-3 flex flex-col gap-5 items-center lg:flex-col lg:gap-5 lg:items-center'>
             <input type="text" placeholder='Как к вам обращаться?' className='default-input' maxLength={100}/>
