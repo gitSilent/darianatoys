@@ -37,43 +37,41 @@ export default function Main() {
 
         <div className='flex flex-wrap flex-col items-center px-3 gap-5 md:flex-row md:m-auto md:justify-center'>
             <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full h-full object-cover' />
+              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
             </div>
             
             <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full h-full object-cover' />
+              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
             </div>
 
             <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full h-full object-cover' />
+              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
             </div>
 
             <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full h-full object-cover' />
+              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
             </div>
 
             <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full h-full object-cover' />
+              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
             </div>
             
             <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full h-full object-cover' />
+              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
             </div>
 
             <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full h-full object-cover' />
+              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
             </div>
 
             <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full h-full object-cover' />
+              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
             </div>
            
           </div>
         </main>
         
-        <footer>
           <Footer/>
-        </footer>
     </div>
   )
 }
