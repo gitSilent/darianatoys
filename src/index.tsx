@@ -13,6 +13,8 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import Feedback from './pages/Feedback/Feedback';
 import Profile from './pages/Profile/Profile';
 import Product from './pages/Product/Product';
+import Authorization from './pages/Authorization/Authorization';
+import Registration from './pages/Registration/Registration';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +51,16 @@ const router = createBrowserRouter([
   {
     path: "/product/*",
     element: <Product/> ,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: "/authorization",
+    element: <Authorization/> ,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: "/registration",
+    element: <Registration/> ,
     errorElement: <ErrorPage/>
   },
 ]);
