@@ -12,6 +12,7 @@ import ShoppingCart from './pages/ShoppingCart/ShoppingCart';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import Feedback from './pages/Feedback/Feedback';
 import Profile from './pages/Profile/Profile';
+import Product from './pages/Product/Product';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile/> ,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: "/product/*",
+    element: <Product/> ,
     errorElement: <ErrorPage/>
   },
 ]);
