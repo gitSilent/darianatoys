@@ -4,3 +4,19 @@ export interface IProduct{
     desc:string,
     price:string
 }
+
+export interface IUserReg{
+    username:string,
+    email:string,
+    password:string
+}
+
+export interface IUserAuth{
+    username:string,
+    password:string
+}
+
+export interface IJWTKeys{
+    refresh:string,
+    access:string
+}

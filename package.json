@@ -10,10 +10,13 @@
     "@types/node": "^16.18.38",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
+    "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.45.2",
     "react-router-dom": "^6.14.1",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.3",
     "sass": "^1.63.6",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
