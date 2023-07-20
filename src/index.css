@@ -24,7 +24,11 @@
   font-weight: normal;
 } */
 
-
+@layer utilities{
+  .svgIcons{
+    width: calc(30px + 1vw);
+  }
+}
 
 *{
   margin: 0;
