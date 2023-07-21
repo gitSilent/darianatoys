@@ -5,6 +5,9 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import axios, { AxiosResponse } from 'axios';
 import { ToastContainer,toast } from 'react-toastify';
 import { authUser } from '../../services/api/authorization';
+import { addMinutes } from '../../services/serviceFuncs/addMinutes';
+import { getPurchases } from '../../services/api/purchases';
+import { getPurchasesUrl } from '../../services/api/urls';
 export default function Authorization() {
 
     const navigate = useNavigate();
@@ -14,11 +17,11 @@ export default function Authorization() {
     });
 
 
-    function addMinutes(date:Date, minutes:number) {
-      date.setMinutes(date.getMinutes() + minutes);
+    // function addMinutes(date:Date, minutes:number) {
+    //   date.setMinutes(date.getMinutes() + minutes);
     
-      return date.toUTCString();
-    }
+    //   return date.toUTCString();
+    // }
 
     function onSubmit(data:any){
 
@@ -30,12 +33,14 @@ export default function Authorization() {
         let cookieAccess = `access=${response.data.access}; expires=${addMinutes(currentDate,15)}`
         let cookieRefresh = `refresh=${response.data.refresh}; expires=${addMinutes(currentDate,1440)}`
 
+        // navigate('/products')
+
         document.cookie = cookieAccess;
         document.cookie = cookieRefresh;
 
         console.log(cookieAccess);
         console.log(cookieRefresh);
-        
+
       })
       .catch((er:any)=>{
         console.log(er);
