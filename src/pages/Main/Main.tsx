@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useEffect, useState}from 'react'
 import Header from '../../components/Header/Header'
 import main_bg from '../../media/main_bg.jpg'
 import leaf_icon from '../../media/leaf_icon.svg'
@@ -6,8 +6,25 @@ import safely_icon from '../../media/safely_icon.svg'
 import heart_icon from '../../media/heart_icon.svg'
 import toys from '../../media/toys.jpg'
 import Footer from '../../components/Footer/Footer'
+import { getMainPagePictures } from '../../services/api/mainPage'
+import { mainPageUrl } from '../../services/api/urls'
+import { IMainPagePicture } from '../../types/types'
 
 export default function Main() {
+
+  const [pictures, setPictures] = useState<IMainPagePicture[]>()
+
+  useEffect(() => {
+    getMainPagePictures(mainPageUrl)
+    .then((response)=>{
+      console.log(response.data);
+      setPictures(response.data)
+    })
+    
+  }, [])
+  
+    
+    
   return (
     <div>
         <Header/>
@@ -36,38 +53,13 @@ export default function Main() {
           <span className='block m-auto w-fit font-bold text-xl my-10'>Наши работы</span>
 
         <div className='flex flex-wrap flex-col items-center px-3 gap-5 md:flex-row md:m-auto md:justify-center'>
-            <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
-            </div>
             
+          {pictures?.map((pic)=>(
             <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
+              <img src={pic.photo} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
             </div>
+          ))}
 
-            <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
-            </div>
-
-            <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
-            </div>
-
-            <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
-            </div>
-            
-            <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
-            </div>
-
-            <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
-            </div>
-
-            <div className='w-full max-w-[550px] max-h-96 md:w-80'>
-              <img src={toys} alt="" className='rounded-xl w-full max-w-[480px] h-full object-cover' />
-            </div>
-           
           </div>
         </main>
         

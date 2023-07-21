@@ -20,3 +20,7 @@ export interface IJWTKeys{
     refresh:string,
     access:string
 }
+
+export interface IMainPagePicture{
+    photo:string
+}
