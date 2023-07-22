@@ -15,7 +15,7 @@ export default function ProductCard({ slug, photos, description, cost }: IProduc
 
 
   return (
-    <Link to={`/product?id=${slug}`}>
+    <Link to={`/product/?id=${slug}`}>
       <div className='min-w-[350px] max-w-[480px] min-h-[460px] max-h-[560px] relative border border-gray-400 rounded-xl hover:cursor-pointer hover:scale-[101%] duration-[150ms] '>
         <img src={photos[0].photo} alt="product" className='object-cover w-full min-h-[350px] rounded-tr-xl rounded-tl-xl ' />
         <div className='px-5 pb-5 flex flex-row justify-between items-center'>

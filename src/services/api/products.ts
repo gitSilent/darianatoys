@@ -5,5 +5,5 @@ export async function getProducts(url:string) {
 } 
 
 export async function retriveProduct(url:string, profuctId:string | null) {
-    return axios.get(url + profuctId)
+    return axios.get(url + profuctId + "/")
  } 

@@ -49,7 +49,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>
   },
   {
-    path: "/product/:id",
+    path: "/product/:id?",
     element: <Product/> ,
     errorElement: <ErrorPage/>
   },

@@ -20,7 +20,6 @@ export default function Menu() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
 
-           
             <ul className='flex flex-col mt-20 '> 
                 <Link className='font-semibold text-2xl text-gray-200' to={'/'}>
                     <li className='border-y border-gray-700 py-5 w-full pl-3 hover:bg-slate-700'>

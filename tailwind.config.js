@@ -7,6 +7,15 @@ module.exports = {
     fontFamily:{
       OpenSansRegular:['Prompt', 'sans-serif']
     },
+    screens: {
+      xs:"300px",
+      sm: '480px',
+      sl: '600px',
+      md: '768px',
+      lg: '976px',
+      lx: '1040px',
+      xl: '1440px',
+    },
     extend: {},
   },
   plugins: [],

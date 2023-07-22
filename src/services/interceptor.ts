@@ -39,6 +39,8 @@ instance.interceptors.response.use(
       let refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refresh\s*\=\s*([^;]*).*$)|^.*$/, "$1");
       if (refreshToken === ""){
           return false
+        }else{
+          return true
         }
         
         const originalRequest = {...error.config};
