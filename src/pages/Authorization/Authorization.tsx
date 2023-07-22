@@ -41,6 +41,8 @@ export default function Authorization() {
         console.log(cookieAccess);
         console.log(cookieRefresh);
 
+        navigate('/')
+
       })
       .catch((er:any)=>{
         console.log(er);

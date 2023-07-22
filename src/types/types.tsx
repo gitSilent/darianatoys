@@ -1,8 +1,11 @@
+interface IProductPhotos{
+    photo:string
+}
 export interface IProduct{
-    id:string,
-    img: string,
-    desc:string,
-    price:string
+    slug:string,
+    photos: IProductPhotos[],
+    description:string,
+    cost:string
 }
 
 export interface IUserReg{

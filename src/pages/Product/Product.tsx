@@ -16,9 +16,12 @@ export default function Product() {
 
     useEffect(() => {
         setId(parametres.get("id"))
+        console.log(parametres.get('id'));
+        
         retriveProduct(productUrl, id)
         .then(data => {
             setToy(data.data)
+            
           })
           .catch(data => {
             console.log(data);
@@ -33,34 +36,9 @@ export default function Product() {
               theme: "light",
             })
           })
-    }, [])
+    }, [id,parametres])
 
-    const productsArr: IProduct[] = [
-        {
-            "id": "1",
-            "img": "",
-            "desc": "description of this product",
-            "price": "1800"
-        },
-        {
-            "id": "2",
-            "img": "",
-            "desc": "description of this product",
-            "price": "1800"
-        },
-        {
-            "id": "3",
-            "img": "",
-            "desc": "description of this product",
-            "price": "1800"
-        },
-        {
-            "id": "4",
-            "img": "",
-            "desc": "description of this product",
-            "price": "1800"
-        }
-    ]
+   
     return (
         <div className='mt-[125px]'>
             <Header />
@@ -68,11 +46,11 @@ export default function Product() {
             <div className='flex flex-col h-screen w-full max-w-4xl mx-auto'>
                 <div className='lg:flex lg:flex-col lg:w-5xl'>
                     <div className='flex flex-col px-5 items-center lg:flex-row lg:gap-8 lg:justify-between lg:w-5xl lg:p-0'>
-                        <img src={toy?.img} alt="" className='w-full max-w-[500px] mb-5 object-cover rounded-xl lg:max-w-[400px]' />
+                        <img src={toy?.photos[0].photo} alt="" className='w-full max-w-[500px] mb-5 object-cover rounded-xl lg:max-w-[400px]' />
                         <div className='mt-auto lg:min-w-[400px]'>
                             <div className='flex flex-col max-w-4xl items-center sm:flex-row sm:justify-between md:flex-row md:justify-between md:gap-5  '>
-                                <h3 className='font-bold text-2xl mb-3'>{toy?.id}</h3>
-                                <span className='block p-3 border border-black/10 w-fit rounded-xl font-semibold text-xl mb-5 whitespace-nowrap'>{toy?.price}</span>
+                                <h3 className='font-bold text-2xl mb-3'>{toy?.slug}</h3>
+                                <span className='block p-3 border border-black/10 w-fit rounded-xl font-semibold text-xl mb-5 whitespace-nowrap'>{toy?.cost}</span>
                             </div>
 
                             <div className='flex flex-row w-full mb-10 gap-3 justify-center'>
@@ -85,14 +63,14 @@ export default function Product() {
                                 </button>
                             </div>
                             <h3 className='font-bold text-xl mb-3 lg:hidden'>Описание</h3>
-                            <p className='lg:hidden'>{toy?.desc}</p>
+                            <p className='lg:hidden'>{toy?.description}</p>
                         </div>
                     </div>
                 </div>
 
                 <div className='hidden lg:block lg:max-w-5xl'>
                     <h3 className='font-bold text-xl mb-3'>Описание</h3>
-                    <p className=''>{toy?.desc}</p>
+                    <p className=''>{toy?.description}</p>
                 </div>
             </div>
             <Footer />

@@ -13,6 +13,7 @@ export default function Profile() {
   getPurchases(getPurchasesUrl)
     .then((resp)=>{
       console.log(resp);
+      navigate('/authorization')
     })
 
     function exitAccount(){

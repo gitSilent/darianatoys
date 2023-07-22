@@ -16,7 +16,9 @@ export default function Products() {
 
     getProducts(productsUrl)
       .then(data => {
-        setToys(data.data)
+        console.log(data.data.results);
+        
+        setToys(data.data.results)
       })
       .catch(data => {
         console.log(data);
@@ -41,7 +43,7 @@ export default function Products() {
       <h2 className='font-bold m-auto w-fit text-xl lg:pt-16'>Товары</h2>
       <div className='mt-11 px-3 flex flex-col gap-5 items-center lg:flex-row lg:flex-wrap lg:gap-5 lg:justify-center'>
         {toy?.map((item, idx) => {
-          return <ProductCard key={idx} id={item.id} img={item.img} desc={item.desc} price={item.price} />
+          return <ProductCard key={idx} slug={item?.slug} photos={item?.photos} description={item?.description} cost={item?.cost} />
         })}
       </div>
       <Footer />

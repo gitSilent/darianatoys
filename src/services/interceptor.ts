@@ -1,6 +1,9 @@
 import axios from "axios";
 import { getTokensUrl, refreshTokenUrl } from "./api/urls";
 import { addMinutes } from "./serviceFuncs/addMinutes";
+import { useNavigate } from "react-router-dom";
+import { NavigateFunc } from "./navigate";
+
 
 export const instance = axios.create({
   // к запросу будет прикрепляться cookies
@@ -35,7 +38,7 @@ instance.interceptors.response.use(
     //пользователю нужно переавторизоваться 
       let refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refresh\s*\=\s*([^;]*).*$)|^.*$/, "$1");
       if (refreshToken === ""){
-          return 'refresh token expired, please relogin'
+          return false
         }
         
         const originalRequest = {...error.config};
