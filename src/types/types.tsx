@@ -29,9 +29,24 @@ export interface IMainPagePicture{
 }
 
 export interface IProductToCart{
-    toy:string,
-    user:string,
+    toy:number | undefined,
+    user:number | undefined,
     amount:number
+}
+
+export interface IProductPageInfo{
+    category:{
+        id:number,
+        name:string,
+        slug:string
+    },
+    cost:number,
+    description:string,
+    overall_rating:number,
+    photos:IMainPagePicture[],
+    review:string[],
+    slug:string,
+    title:string
 }
 
 export interface IToyInCart{

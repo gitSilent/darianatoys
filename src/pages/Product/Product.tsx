@@ -1,28 +1,65 @@
 import React, { useEffect, useState } from 'react'
-import { IProduct } from '../../types/types'
+import { IProduct, IProductPageInfo } from '../../types/types'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import toys from '../../media/toys.jpg'
-import { useSearchParams } from 'react-router-dom'
-import { productUrl } from '../../services/api/urls'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { productUrl, refreshTokenUrl } from '../../services/api/urls'
 import { retriveProduct } from '../../services/api/products'
 import { ToastContainer, toast } from 'react-toastify'
 import { addToCart } from '../../services/api/cart'
+import { instance } from '../../services/interceptor'
+import { authCheck } from '../../services/api/authorization'
+
+interface ITokenInfoDecoded{
+    exp:number,
+    iat:number,
+    jti:string,
+    token_type:string,
+    user_id:number | undefined
+}
 
 export default function Product() {
 
     const [parametres] = useSearchParams();
-    const [toy, setToy] = useState<IProduct>()
+    const [toy, setToy] = useState<IProductPageInfo>()
+    const [userInfoFromToken, setUserInfoFromToken] = useState<ITokenInfoDecoded>()
+    const navigate = useNavigate()
 
     function handleCartBtn(){
-        console.log("added to cart");
+        // проверяем факт авторизации пользователя
+        authCheck()
+        .then((response)=>{
+            console.log(response);
+            //если у пользователя не истек refresh токен, то обновляется access и выполняется добавление в корзину
+            if (response){
+                
+                let accessToken = document.cookie.replace(/(?:(?:^|.*;\s*)access\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+                console.log(accessToken);
+                
+                const tokenInfo = accessToken.split('.')[1]
+                const tokenInfoDecoded:ITokenInfoDecoded = JSON.parse(window.atob(tokenInfo))
+                setUserInfoFromToken(tokenInfoDecoded)
+                
+            }else{
+                //если у пользователя истек refresh токен, то выполняется переход на страницу авторизации
+                navigate('/authorization')
+            }
+        })
+        
+        console.log({
+            toy:toy?.category.id,
+            user:userInfoFromToken?.user_id,
+            amount:1
+        });
         
         addToCart({
-            toy:"1",
-            user:"2",
+            toy:toy?.category.id,
+            user:userInfoFromToken?.user_id,
             amount:1
         }).then((response)=>{
             console.log(response);
+            
             toast(response?.data?.responce)
         }).catch((er:any)=>{
             for (var key of Object.keys(er.response?.data)) {
@@ -37,7 +74,9 @@ export default function Product() {
     useEffect(() => {
         retriveProduct(productUrl, parametres.get("id"))
             .then(data => {
-                setToy(data.data)
+                const productInfo:IProductPageInfo = data.data;
+                console.log(productInfo);
+                setToy(productInfo)
 
             })
             .catch(data => {
