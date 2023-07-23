@@ -9,6 +9,7 @@ import Footer from '../../components/Footer/Footer'
 import { getMainPagePictures } from '../../services/api/mainPage'
 import { mainPageUrl } from '../../services/api/urls'
 import { IMainPagePicture } from '../../types/types'
+import { textStyle } from '../../styles/style'
 
 export default function Main() {
 
@@ -17,10 +18,8 @@ export default function Main() {
   useEffect(() => {
     getMainPagePictures(mainPageUrl)
     .then((response)=>{
-      console.log(response.data);
       setPictures(response.data)
     })
-    
   }, [])
   
     
@@ -35,7 +34,7 @@ export default function Main() {
             <img className='absolute left-0 top-0 w-full h-full z-0 object-cover' src={main_bg} alt="" />
           </div>
         
-        <div className='bg-black py-8 flex flex-col gap-16 items-center md:flex-row md:justify-center md:gap-44'>
+        <div className=' bg-zinc-800 py-8 flex flex-col gap-16 items-center md:flex-row md:justify-center md:gap-44'>
           <div className='text-white flex flex-col items-center'>
             <img src={leaf_icon} alt="" className='w-28'/>
             <span>Гипоаллергенно</span>
@@ -50,7 +49,7 @@ export default function Main() {
           </div>
         </div>
 
-          <span className='block m-auto w-fit font-bold text-xl my-10'>Наши работы</span>
+          <span className={textStyle.titlesText}>Наши работы</span>
 
         <div className='flex flex-wrap flex-col items-center px-3 gap-5 md:flex-row md:m-auto md:justify-center'>
             
