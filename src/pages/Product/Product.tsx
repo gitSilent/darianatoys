@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { IProduct, IProductPageInfo } from '../../types/types'
+import { IProduct, IProductPageInfo, ITokenInfoDecoded } from '../../types/types'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import toys from '../../media/toys.jpg'
@@ -11,13 +11,6 @@ import { addToCart } from '../../services/api/cart'
 import { instance } from '../../services/interceptor'
 import { authCheck } from '../../services/api/authorization'
 
-interface ITokenInfoDecoded{
-    exp:number,
-    iat:number,
-    jti:string,
-    token_type:string,
-    user_id:number | undefined
-}
 
 export default function Product() {
 
@@ -47,11 +40,11 @@ export default function Product() {
             }
         })
         
-        console.log({
-            toy:toy?.category.id,
-            user:userInfoFromToken?.user_id,
-            amount:1
-        });
+        // console.log({
+        //     toy:toy?.category.id,
+        //     user:userInfoFromToken?.user_id,
+        //     amount:1
+        // });
         
         addToCart({
             toy:toy?.category.id,
@@ -94,10 +87,6 @@ export default function Product() {
             })
     }, [parametres])
 
-    useEffect(()=>{
-        console.log(toy);
-        
-    },[toy])
     return (
         <div className='xs:mt-[6rem] lg:mt-[11rem]'>
             <Header />

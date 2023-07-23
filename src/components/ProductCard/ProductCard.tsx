@@ -1,22 +1,60 @@
 import to_cart from '../../media/to_cart.svg'
-import { Link } from 'react-router-dom'
-import { IProduct } from '../../types/types'
+import { Link, useNavigate } from 'react-router-dom'
+import { IProduct, IProductPageInfo, ITokenInfoDecoded } from '../../types/types'
 import { toast } from 'react-toastify'
 import { addToCart } from '../../services/api/cart'
+import { useState } from 'react'
+import { authCheck } from '../../services/api/authorization'
 
-function handleCartBtn() {
-  addToCart({
-    toy: "1",
-    user: "2",
-    amount: 1
-  }).then((response) => {
-    toast(response?.data?.responce)
-  }).catch((er: any) => {
-    toast("Ошибка, товар не был добавлен в корзину")
-  })
+
+export default function ProductCard({ category, slug, photos, description, cost, title }: IProductPageInfo) {
+  const [userInfoFromToken, setUserInfoFromToken] = useState<ITokenInfoDecoded>()
+  const navigate = useNavigate()
+
+  function handleCartBtn(){
+    // проверяем факт авторизации пользователя
+    authCheck()
+    .then((response)=>{
+        console.log(response);
+        //если у пользователя не истек refresh токен, то обновляется access и выполняется добавление в корзину
+        if (response){
+            
+            let accessToken = document.cookie.replace(/(?:(?:^|.*;\s*)access\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+            console.log(accessToken);
+            
+            const tokenInfo = accessToken.split('.')[1]
+            const tokenInfoDecoded:ITokenInfoDecoded = JSON.parse(window.atob(tokenInfo))
+            setUserInfoFromToken(tokenInfoDecoded)
+            
+        }else{
+            //если у пользователя истек refresh токен, то выполняется переход на страницу авторизации
+            navigate('/authorization')
+        }
+    })
+    
+    // console.log({
+    //     toy:category.id,
+    //     user:userInfoFromToken?.user_id,
+    //     amount:1
+    // });
+    
+    addToCart({
+        toy:category.id,
+        user:userInfoFromToken?.user_id,
+        amount:1
+    }).then((response)=>{
+        console.log(response);
+        
+        toast(response?.data?.responce)
+    }).catch((er:any)=>{
+        for (var key of Object.keys(er.response?.data)) {
+            for(let errorText of er.response?.data[key]){
+              toast(errorText)
+            }
+          }
+        })
 }
-
-export default function ProductCard({ slug, photos, description, cost }: IProduct) {
+  
   return (
     <div className='min-w-[350px] max-w-[480px] min-h-[460px] max-h-[560px] relative border border-gray-400 rounded-xl hover:cursor-pointer hover:scale-[101%] duration-[150ms] '>
       <Link to={`/product/?id=${slug}`}>
@@ -24,7 +62,7 @@ export default function ProductCard({ slug, photos, description, cost }: IProduc
       </Link>
       <div className='px-5 pb-5 flex flex-row justify-between items-center'>
         <div className=''>
-          <span className='block mt-4 font-semibold text-xl'>{description}</span>
+          <span className='block mt-4 font-semibold text-xl'>{title}</span>
           <span className='block font-normal text-2xl mt-3'>{cost} р.</span>
         </div>
         <img src={to_cart} alt="add to cart" className='w-[72px] h-[72px] hover:cursor-pointer hover:scale-110 duration-500' onClick={handleCartBtn} />

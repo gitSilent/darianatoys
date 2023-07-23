@@ -65,3 +65,11 @@ export interface IFeedbackData{
     email:string,
     message:string
 }
+
+export interface ITokenInfoDecoded{
+    exp:number,
+    iat:number,
+    jti:string,
+    token_type:string,
+    user_id:number | undefined
+}

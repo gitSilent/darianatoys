@@ -25,7 +25,7 @@ export async function authCheck() {
       return false
     }
 
-    const refresh = ()=>{
+    const refresh = async ()=>{
       return instance.post(refreshTokenUrl,{
           "refresh":refreshToken
       })
