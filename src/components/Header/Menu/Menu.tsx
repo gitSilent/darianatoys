@@ -15,7 +15,7 @@ export default function Menu() {
             </svg>
         </div>
     : <div>
-        <div className='py-3 cursor-pointer fixed z-50 h-full w-3/4 bg-gray-950 sm:w-2/5 lg:hidden' onClick={()=> {setIsOpened(false)}}>
+        <div className='py-3 cursor-pointer fixed z-50 h-full w-3/4 bg-zinc-800 sm:w-2/5 lg:hidden' onClick={()=> {setIsOpened(false)}}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="white" className="w-11 h-11 ml-3">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>

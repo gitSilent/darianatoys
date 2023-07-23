@@ -5,12 +5,13 @@ import toy_1 from '../../media/toy_1.jpg'
 import toy_2 from '../../media/toy_2.jpg'
 import toy_3 from '../../media/toy_3.jpg'
 import toy_4 from '../../media/toy_4.jpg'
+import { textStyle } from '../../styles/style'
 
 export default function About() {
   return (
-    <div className='pt-[78px]'>
+    <div className='xs:pt-[78px] md:pt-[115px]'>
       <Header/>
-      <h2 className='font-bold m-auto w-fit text-xl mb-10 lg:pt-16'>О нас</h2>
+      <h2 className={textStyle.titlesText}>О нас</h2>
       <div className='px-5 md:px-10'>
 
 {/* 1 карточка */}
