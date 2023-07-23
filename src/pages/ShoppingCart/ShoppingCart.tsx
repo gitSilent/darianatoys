@@ -4,16 +4,22 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import { getCart } from '../../services/api/cart'
 import { IToysInCart } from '../../types/types'
+import { useNavigate } from 'react-router-dom'
 
 export default function ShoppingCart() {
 
   const [toysInCart, setToysInCart] = useState<IToysInCart>()
+  const navigate = useNavigate()
 
   useEffect(() => {
     
     getCart()
     .then((response)=>{
       console.log(response);
+      if(!response){
+        navigate('/authorization')
+        return
+      }
       setToysInCart(response.data)
     })
     

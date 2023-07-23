@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { IProduct, IProductPageInfo, ITokenInfoDecoded } from '../../types/types'
+import { IProductPageInfo, ITokenInfoDecoded } from '../../types/types'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
-import toys from '../../media/toys.jpg'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { productUrl, refreshTokenUrl } from '../../services/api/urls'
+import { productUrl} from '../../services/api/urls'
 import { retriveProduct } from '../../services/api/products'
 import { ToastContainer, toast } from 'react-toastify'
 import { addToCart } from '../../services/api/cart'
-import { instance } from '../../services/interceptor'
 import { authCheck } from '../../services/api/authorization'
 
 
