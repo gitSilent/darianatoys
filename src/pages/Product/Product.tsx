@@ -7,11 +7,32 @@ import { useSearchParams } from 'react-router-dom'
 import { productUrl } from '../../services/api/urls'
 import { retriveProduct } from '../../services/api/products'
 import { ToastContainer, toast } from 'react-toastify'
+import { addToCart } from '../../services/api/cart'
 
 export default function Product() {
 
     const [parametres] = useSearchParams();
     const [toy, setToy] = useState<IProduct>()
+
+    function handleCartBtn(){
+        console.log("added to cart");
+        
+        addToCart({
+            toy:"1",
+            user:"2",
+            amount:1
+        }).then((response)=>{
+            console.log(response);
+            toast(response?.data?.responce)
+        }).catch((er:any)=>{
+            for (var key of Object.keys(er.response?.data)) {
+                for(let errorText of er.response?.data[key]){
+                  toast(errorText)
+                }
+              }
+            })
+    }
+    
 
     useEffect(() => {
         retriveProduct(productUrl, parametres.get("id"))
@@ -34,7 +55,10 @@ export default function Product() {
             })
     }, [parametres])
 
-
+    useEffect(()=>{
+        console.log(toy);
+        
+    },[toy])
     return (
         <div className='xs:mt-[6rem] lg:mt-[11rem]'>
             <Header />
@@ -53,7 +77,7 @@ export default function Product() {
                     </div>
                     <div className='flex flex-row w-full mb-10 gap-3 justify-center'>
                         <button className='px-5 py-3 w-full max-w-[200px] whitespace-nowrap bg-orange-500/50 font-semibold rounded-xl hover:bg-orange-500/70'>Купить</button>
-                        <button className='flex flex-row justify-center px-5 py-3 w-full max-w-[200px] gap-2 items-center whitespace-nowrap bg-red-400 font-semibold rounded-xl hover:bg-red-500'>
+                        <button onClick={handleCartBtn}className='flex flex-row justify-center px-5 py-3 w-full max-w-[200px] gap-2 items-center whitespace-nowrap bg-red-400 font-semibold rounded-xl hover:bg-red-500'>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                             </svg>

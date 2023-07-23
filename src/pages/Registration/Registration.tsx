@@ -56,7 +56,7 @@ export default function Registration() {
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center mt-[125px] px-5 gap-3 md:w-[500px] mx-auto'>
             <h1 className='w-fit font-bold text-4xl mb-5'>Регистрация</h1>
 
-            <input {...register("username", {
+            <input {...register("user", {
               required: "Поле обязательно к заполнению",
                 minLength:{
                   value: 5,

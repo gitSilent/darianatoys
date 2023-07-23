@@ -27,3 +27,26 @@ export interface IJWTKeys{
 export interface IMainPagePicture{
     photo:string
 }
+
+export interface IProductToCart{
+    toy:string,
+    user:string,
+    amount:number
+}
+
+export interface IToyInCart{
+    amount:number,
+    toy:number
+}
+
+export interface IToysInCart{
+    items:IToyInCart[],
+    total_price:number,
+    user:number
+}
+
+export interface IFeedbackData{
+    user:number,
+    email:string,
+    message:string
+}
