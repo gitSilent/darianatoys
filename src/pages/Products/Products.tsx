@@ -48,7 +48,7 @@ export default function Products() {
       <Header />
       <ToastContainer/>
       <h2 className='font-bold m-auto w-fit text-xl lg:pt-16'>Товары</h2>
-      <div className='mt-11 px-3 flex flex-col gap-5 items-center lg:flex-row lg:flex-wrap lg:gap-5 lg:justify-center'>
+      <div className='mt-11 px-3 flex flex-col gap-5 items-center min-h-screen lg:flex-row lg:flex-wrap lg:gap-5 lg:justify-center'>
         {toys?.map((item, idx) => {
           return <ProductCard 
           category={item.category}
@@ -60,6 +60,7 @@ export default function Products() {
           description={item?.description}
           cost={item?.cost} />
         })}
+        
       </div>
       <Footer />
     </div>

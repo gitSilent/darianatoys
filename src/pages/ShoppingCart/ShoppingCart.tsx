@@ -39,6 +39,8 @@ export default function ShoppingCart() {
         <span className='block mt-16 font-medium text-4xl w-fit m-auto'>Итого: {toysInCart?.total_price} р.</span>
         <button className='block rounded-xl mt-10 py-3 px-10 font-bold text-2xl w-fit bg-amber-600 m-auto hover:bg-amber-700'>Оформить заказ</button>
       </div>
+      <div className='min-h-[50vh]'></div>
+
       <Footer/>
     </div>
   )

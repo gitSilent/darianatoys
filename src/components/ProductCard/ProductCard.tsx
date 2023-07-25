@@ -11,6 +11,7 @@ export default function ProductCard({ category, slug, photos, description, cost,
   const [userInfoFromToken, setUserInfoFromToken] = useState<ITokenInfoDecoded>()
   const navigate = useNavigate()
 
+  // функция добавления товара в корзину
   function handleCartBtn(){
     // проверяем факт авторизации пользователя
     authCheck()
@@ -31,12 +32,6 @@ export default function ProductCard({ category, slug, photos, description, cost,
             navigate('/authorization')
         }
     })
-    
-    // console.log({
-    //     toy:category.id,
-    //     user:userInfoFromToken?.user_id,
-    //     amount:1
-    // });
     
     addToCart({
         toy:category.id,

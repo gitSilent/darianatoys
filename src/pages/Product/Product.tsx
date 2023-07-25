@@ -8,9 +8,13 @@ import { retriveProduct } from '../../services/api/products'
 import { ToastContainer, toast } from 'react-toastify'
 import { addToCart } from '../../services/api/cart'
 import { authCheck } from '../../services/api/authorization'
+import Review from '../../components/Review/Review'
+import Modal from '../../components/Modal/Modal'
+import ModalReview from '../../components/ModalReview/ModalReview'
 
 
 export default function Product() {
+    const [modalActive, setModalActive] = useState(false);
 
     const [parametres] = useSearchParams();
     const [toy, setToy] = useState<IProductPageInfo>()
@@ -87,6 +91,7 @@ export default function Product() {
 
     return (
         <div className='xs:mt-[6rem] lg:mt-[11rem]'>
+           <ModalReview active={modalActive} setActive={setModalActive} toy={toy}/>
             <Header />
             <ToastContainer />
             <div className='flex flex-col h-screen w-full max-w-4xl mx-auto'>
@@ -111,8 +116,22 @@ export default function Product() {
                         </button>
                     </div>
                 </div>
+                <hr />
+                <div className='flex flex-col my-10 pb-20 mx-3'>
+                    <div className='flex-col gap-4 flex mb-8 items-center md:flex-row md:justify-between'>
+                        <span className='block text-xl font-semibold'>Отзывы</span>
+                        <button onClick={()=>{setModalActive(true)}} className='px-5 py-3 w-full max-w-[200px] whitespace-nowrap bg-orange-500/70 font-semibold rounded-xl hover:bg-orange-500/90'>Оставить отзыв</button>
+                    </div>
+                    <div className='flex flex-col gap-5'>
+                        <Review/>
+                        <Review/>
+                        <Review/>
+
+                    </div>
+                </div>
 
             </div>
+
             <Footer />
         </div>
     )

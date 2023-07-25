@@ -73,3 +73,11 @@ export interface ITokenInfoDecoded{
     token_type:string,
     user_id:number | undefined
 }
+
+export interface IReviewData {
+    title:string,
+    description:string
+    rating:number,
+    toy:number | undefined,
+    user:number
+}

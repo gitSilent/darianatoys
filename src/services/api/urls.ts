@@ -7,3 +7,4 @@ export const mainPageUrl = "http://plush-toy.shop/" //get main page's content
 export const addToCartUrl = "http://plush-toy.shop/cart/" //add a product to cart PUT
 export const getCartUrl = "http://plush-toy.shop/cart/" //get a products from cart GET
 export const sendFeedbackUrl = "http://plush-toy.shop/feedback/" //send a feedback
+export const sendReviewUrl = "http://plush-toy.shop/toy/" //send a feedback
