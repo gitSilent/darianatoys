@@ -11,45 +11,45 @@ export default function ProductCard({ category, slug, photos, description, cost,
   const [userInfoFromToken, setUserInfoFromToken] = useState<ITokenInfoDecoded>()
   const navigate = useNavigate()
 
-  // функция добавления товара в корзину
-  function handleCartBtn(){
-    // проверяем факт авторизации пользователя
+
+  function handleCartBtn() {
     authCheck()
-    .then((response)=>{
-        console.log(response);
-        //если у пользователя не истек refresh токен, то обновляется access и выполняется добавление в корзину
-        if (response){
-            
-            let accessToken = document.cookie.replace(/(?:(?:^|.*;\s*)access\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-            console.log(accessToken);
-            
-            const tokenInfo = accessToken.split('.')[1]
-            const tokenInfoDecoded:ITokenInfoDecoded = JSON.parse(window.atob(tokenInfo))
-            setUserInfoFromToken(tokenInfoDecoded)
-            
-        }else{
-            //если у пользователя истек refresh токен, то выполняется переход на страницу авторизации
-            navigate('/authorization')
+      .then((response) => {
+        if (response) {
+
+          let accessToken = document.cookie.replace(/(?:(?:^|.*;\s*)access\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+          const tokenInfo = accessToken.split('.')[1]
+          const tokenInfoDecoded: ITokenInfoDecoded = JSON.parse(window.atob(tokenInfo))
+          setUserInfoFromToken(tokenInfoDecoded)
+
+        } else {
+          navigate('/authorization')
         }
-    })
-    
+      })
+
     addToCart({
-        toy:category.id,
-        user:userInfoFromToken?.user_id,
-        amount:1
-    }).then((response)=>{
-        console.log(response);
-        
-        toast(response?.data?.responce)
-    }).catch((er:any)=>{
-        for (var key of Object.keys(er.response?.data)) {
-            for(let errorText of er.response?.data[key]){
-              toast(errorText)
-            }
-          }
-        })
-}
-  
+      toy: category.id,
+      user: userInfoFromToken?.user_id,
+      amount: 1
+    }).then((response) => {
+
+      toast(response?.data?.responce)
+      
+    }).catch((er: any) => {
+      toast.error("Произошла ошибка", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+    })
+  }
+
   return (
     <div className='min-w-[350px] max-w-[480px] min-h-[460px] max-h-[560px] relative border border-gray-400 rounded-xl hover:cursor-pointer hover:scale-[101%] duration-[150ms] '>
       <Link to={`/product/?id=${slug}`}>

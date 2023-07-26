@@ -19,11 +19,10 @@ export default function Registration() {
     function onSubmit(data:any){
       
       if(data.password === repeatPassRef.current?.value){
-        console.log({...data});
+        console.log({...data}); 
         
         registerUser(data)
         .then((response)=>{
-          console.log(response);
           navigate('/authorization')
         }).catch((er:any)=>{
           // console.log(typeof er.response?.data);
@@ -40,12 +39,7 @@ export default function Registration() {
       }
       
       
-    }
-
-    useEffect(() => {
-      // notify()
-    }, [])
-    
+    }    
 
   return (
     <div>
@@ -56,7 +50,7 @@ export default function Registration() {
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center mt-[125px] px-5 gap-3 md:w-[500px] mx-auto'>
             <h1 className='w-fit font-bold text-4xl mb-5'>Регистрация</h1>
 
-            <input {...register("user", {
+            <input {...register("username", {
               required: "Поле обязательно к заполнению",
                 minLength:{
                   value: 5,

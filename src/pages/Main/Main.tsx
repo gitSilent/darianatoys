@@ -48,7 +48,7 @@ export default function Main() {
             <span>С душой</span>
           </div>
         </div>
-
+    
           <span className={textStyle.titlesText}>Наши работы</span>
 
         <div className='flex flex-wrap flex-col items-center px-3 gap-5 md:flex-row md:m-auto md:justify-center'>
