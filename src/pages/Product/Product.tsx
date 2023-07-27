@@ -16,6 +16,7 @@ import "./Product.css"
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import SliderComponent from '../../components/SliderComponent/SliderComponent'
 
 export default function Product() {
     const [modalActive, setModalActive] = useState(false);
@@ -95,25 +96,9 @@ export default function Product() {
             <div className='flex flex-col h-screen w-full max-w-4xl mx-auto'>
                 <div className='lg:flex lg:flex-col lg:w-5xl'>
                     <div className='flex flex-col px-5 items-center lg:flex-row lg:gap-8 lg:justify-between lg:w-5xl lg:p-0'>
-                        <Swiper
-                            slidesPerView={1}
-                            spaceBetween={30}
-                            loop={true}
-                            pagination={{
-                                clickable: true,
-                            }}
-                            navigation={true}
-                            modules={[Pagination, Navigation]}
-                            className="swiper"
-                        >
-                            <SwiperSlide className="swiper-slide">
-                                <p>123</p>
-                            </SwiperSlide>
+                    
+                    <SliderComponent slides={["1 slide", "2 slide", "3 slide"]} />
 
-                            <SwiperSlide className="swiper-slide">
-                                <p>123</p>
-                            </SwiperSlide>
-                        </Swiper>
                         {/* <img src={toy?.photos[0].photo} alt="" className='w-full max-w-[500px] mb-5 object-cover rounded-xl lg:max-w-[400px]' /> */}
                         <div className='mt-auto lg:min-w-[400px]'>
                             <div className='flex flex-col max-w-4xl items-center sm:justify-between md:flex-col md:justify-between gap-5  '>
