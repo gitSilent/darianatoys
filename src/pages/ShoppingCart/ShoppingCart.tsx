@@ -6,8 +6,11 @@ import { getCart } from '../../services/api/cart'
 import { IToysInCart } from '../../types/types'
 import { useNavigate } from 'react-router-dom'
 import { textStyle } from '../../styles/style'
+import Loader from '../../components/Loader/Loader'
 
 export default function ShoppingCart() {
+
+  const [isLoading, setIsLoading] = useState(true)
 
   const [toysInCart, setToysInCart] = useState<IToysInCart>()
   const navigate = useNavigate()
@@ -21,10 +24,15 @@ export default function ShoppingCart() {
           return
         }
         setToysInCart(response.data)
+        setIsLoading(false)
       })
 
   }, [])
 
+  useEffect(()=>{
+    console.log(toysInCart);
+    
+  },[toysInCart])
 
   return (
     <>
@@ -33,11 +41,13 @@ export default function ShoppingCart() {
       <div className='xs:h-[78px] md:h-[115px]'></div>
 
         <h2 className={textStyle.titlesText}>Корзина</h2>
-
+        {isLoading ? <Loader/>
+      :
+      <>
         <div className='px-10'>
           {toysInCart?.items.length !== 0 ? toysInCart?.items.map((item, idx) => (
-            <CartItem key={idx} img={""} toy={item.toy} amount={item.amount} />
-          ))
+            <CartItem key={idx} img={""} toy={item.toy} amount={item.amount} toysInCart={toysInCart} setToysInCart={setToysInCart}/>
+            ))
             :
             <h3 className="mt-14 text-4xl mx-auto w-fit">Корзина пуста</h3>
           }
@@ -46,6 +56,7 @@ export default function ShoppingCart() {
 
         </div>
 
+      </>}
       </div>
       <Footer />
     </>
