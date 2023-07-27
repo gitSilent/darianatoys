@@ -46,6 +46,7 @@ export interface IProductPageInfo {
         name: string,
         slug: string
     },
+    id:number,
     cost: number,
     description: string,
     overall_rating: number,

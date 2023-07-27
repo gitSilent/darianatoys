@@ -48,7 +48,7 @@ export default function Product() {
             })
 
         addToCart({
-            toy: toy?.category.id,
+            toy: toy?.id,
             user: userInfoFromToken?.user_id,
             amount: 1
         }).then((response) => {

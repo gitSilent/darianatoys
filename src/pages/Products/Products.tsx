@@ -6,6 +6,7 @@ import { getProducts } from '../../services/api/products'
 import { IProduct, IProductPageInfo } from '../../types/types'
 import { productsUrl } from '../../services/api/urls'
 import { ToastContainer, toast } from 'react-toastify';
+import { textStyle } from '../../styles/style'
 
 
 export default function Products() {
@@ -13,6 +14,7 @@ export default function Products() {
   const [toys, setToys] = useState<IProductPageInfo[]>()
 
   useEffect(() => {
+    
     getProducts(productsUrl)
       .then(data => {
         setToys(data.data.results)
@@ -33,15 +35,21 @@ export default function Products() {
 
   }, [])
 
+  useEffect(()=>{
+    console.log(toys);
+    
+  },[toys])
+
   return (
-    <div className='pt-[78px]' >
+    <div className='pt-[120px]' >
       <Header />
       <ToastContainer />
-      <h2 className='font-bold m-auto w-fit text-xl lg:pt-16'>Товары</h2>
-      <div className='mt-11 px-3 flex flex-col gap-5 items-center min-h-screen lg:flex-row lg:flex-wrap lg:gap-5 lg:justify-center'>
+      <h2 className={textStyle.titlesText}>Товары</h2>
+      <div className='mt-11 px-3 flex flex-col gap-5 items-center lg:flex-row lg:flex-wrap lg:gap-5 lg:justify-center'>
         {toys?.map((item, idx) => {
           return <ProductCard
             category={item.category}
+            id={item.id}
             overall_rating={item.overall_rating}
             reviews={item.reviews}
             title={item.title}

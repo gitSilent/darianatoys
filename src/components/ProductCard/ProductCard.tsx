@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { authCheck } from '../../services/api/authorization'
 
 
-export default function ProductCard({ category, slug, photos, description, cost, title }: IProductPageInfo) {
+export default function ProductCard({ category, slug, photos, description, cost, title, id }: IProductPageInfo) {
   const [userInfoFromToken, setUserInfoFromToken] = useState<ITokenInfoDecoded>()
   const navigate = useNavigate()
 
@@ -29,7 +29,7 @@ export default function ProductCard({ category, slug, photos, description, cost,
       })
 
     addToCart({
-      toy: category.id,
+      toy: id,
       user: userInfoFromToken?.user_id,
       amount: 1
     }).then((response) => {
