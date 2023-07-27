@@ -97,7 +97,7 @@ export default function Product() {
                 <div className='lg:flex lg:flex-col lg:w-5xl'>
                     <div className='flex flex-col px-5 items-center lg:flex-row lg:gap-8 lg:justify-between lg:w-5xl lg:p-0'>
                     
-                    <SliderComponent slides={["1 slide", "2 slide", "3 slide"]} />
+                    <SliderComponent slides={toy?.photos} />
 
                         {/* <img src={toy?.photos[0].photo} alt="" className='w-full max-w-[500px] mb-5 object-cover rounded-xl lg:max-w-[400px]' /> */}
                         <div className='mt-auto lg:min-w-[400px]'>

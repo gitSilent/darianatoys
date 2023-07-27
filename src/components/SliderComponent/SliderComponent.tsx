@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useEffect } from 'react';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 import { Pagination } from 'swiper/modules';
@@ -13,23 +13,24 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Инициализация модулей Swiper
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
-interface SliderProps {
-  slides: string[];
-}
 
-const Slider: React.FC<SliderProps> = ({ slides }) => {
+const Slider = ({ slides }) => {
+    useEffect(()=>{
+        console.log(slides);
+        
+    },[])
   return (
     <Swiper
       navigation
       pagination={{ clickable: true }}
       autoplay={{ delay: 3000 }}
     >
-      {slides.map((slide, index) => (
+      {slides && slides.map((slide, index) => (
         <SwiperSlide key={index}>
-          {/* <img src={slide} alt={`Slide ${index}`} /> */}
-            <p>{slide}</p>
+          <img src={"http://plush-toy.shop"+slide.photo} alt={`Slide ${index}`}/>
         </SwiperSlide>
       ))}
+      
     </Swiper>
   );
 };
