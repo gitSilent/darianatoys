@@ -16,9 +16,13 @@ import "./Product.css"
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import Loader from '../../components/Loader/Loader'
 
 export default function Product() {
     const [modalActive, setModalActive] = useState(false);
+
+    const [isLoading, setIsLoading] = useState(true)
+
 
     const [parametres] = useSearchParams();
     const [toy, setToy] = useState<IProductPageInfo>()
@@ -54,6 +58,7 @@ export default function Product() {
             console.log(response);
 
             toast(response?.data?.responce)
+            
         }).catch((er: any) => {
             for (var key of Object.keys(er.response?.data)) {
                 for (let errorText of er.response?.data[key]) {
@@ -70,6 +75,7 @@ export default function Product() {
                 const productInfo: IProductPageInfo = data.data;
                 console.log(productInfo);
                 setToy(productInfo)
+                setIsLoading(false)
 
             })
             .catch(data => {
@@ -84,6 +90,7 @@ export default function Product() {
                     progress: undefined,
                     theme: "light",
                 })
+            setIsLoading(false)
             })
     }, [parametres])
 
@@ -91,52 +98,56 @@ export default function Product() {
         <div className='xs:mt-[6rem] lg:mt-[11rem]'>
             <ModalReview active={modalActive} setActive={setModalActive} toy={toy} />
             <Header />
-            <ToastContainer />
-            <div className='flex flex-col h-screen w-full max-w-4xl mx-auto'>
-                <div className='lg:flex lg:flex-col lg:w-5xl'>
-                    <div className='flex flex-col px-5 items-center lg:flex-row lg:gap-8 lg:justify-between lg:w-5xl lg:p-0 mb-5'>
+            {isLoading ? <Loader/>
+            :
+            <>
 
-                        <SliderComponent slides={toy?.photos} />
+                <ToastContainer />
+                <div className='flex flex-col h-screen w-full max-w-4xl mx-auto'>
+                    <div className='lg:flex lg:flex-col lg:w-5xl'>
+                        <div className='flex flex-col px-5 items-center lg:flex-row lg:gap-8 lg:justify-between lg:w-5xl lg:p-0 mb-5'>
 
-                        <div className='mt-auto lg:min-w-[400px]'>
-                            <div className='flex flex-col items-center sm:justify-between md:flex-col md:justify-between gap-5 max-w-[550px] '>
-                                <h3 className='font-bold text-2xl mb-3'>{toy?.slug}</h3>
-                                <p className=''>{toy?.description}</p>
-                                <span className='block p-3 border border-black/10 w-fit rounded-xl font-semibold text-xl mb-5 whitespace-nowrap'>{toy?.cost} р.</span>
+                            <SliderComponent slides={toy?.photos} />
+
+                            <div className='mt-auto lg:min-w-[400px]'>
+                                <div className='flex flex-col items-center sm:justify-between md:flex-col md:justify-between gap-5 max-w-[550px] '>
+                                    <h3 className='font-bold text-2xl mb-3'>{toy?.slug}</h3>
+                                    <p className=''>{toy?.description}</p>
+                                    <span className='block p-3 border border-black/10 w-fit rounded-xl font-semibold text-xl mb-5 whitespace-nowrap'>{toy?.cost} р.</span>
+                                </div>
                             </div>
                         </div>
+                        <div className='flex flex-row w-full mb-10 gap-3 justify-center'>
+                            <button className='px-5 py-3 w-full max-w-[200px] whitespace-nowrap bg-orange-500/50 font-semibold rounded-xl hover:bg-orange-500/70'>Купить</button>
+                            <button onClick={handleCartBtn} className='flex flex-row justify-center px-5 py-3 w-full max-w-[200px] gap-2 items-center whitespace-nowrap bg-red-400 font-semibold rounded-xl hover:bg-red-500'>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                </svg>
+                                В корзину
+                            </button>
+                        </div>
                     </div>
-                    <div className='flex flex-row w-full mb-10 gap-3 justify-center'>
-                        <button className='px-5 py-3 w-full max-w-[200px] whitespace-nowrap bg-orange-500/50 font-semibold rounded-xl hover:bg-orange-500/70'>Купить</button>
-                        <button onClick={handleCartBtn} className='flex flex-row justify-center px-5 py-3 w-full max-w-[200px] gap-2 items-center whitespace-nowrap bg-red-400 font-semibold rounded-xl hover:bg-red-500'>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                            </svg>
-                            В корзину
-                        </button>
+                    <hr />
+                    <div className='flex flex-col my-10 pb-20 mx-3'>
+                        <div className='flex-col gap-4 flex mb-8 items-center md:flex-row md:justify-between'>
+                            <span className='block text-xl font-semibold'>Отзывы</span>
+                            <button onClick={() => { setModalActive(true) }} className='px-5 py-3 w-full max-w-[200px] whitespace-nowrap bg-orange-500/70 font-semibold rounded-xl hover:bg-orange-500/90'>Оставить отзыв</button>
+                        </div>
+                        <div className='flex flex-col gap-5'>
+
+                            {toy?.reviews.map((item) => (
+                                <Review description={item.description} username={item.username} title={item.title} />
+                            ))}
+
+                            {/* <Review />
+                            <Review/>
+                            <Review/> */}
+
+                        </div>
                     </div>
                 </div>
-                <hr />
-                <div className='flex flex-col my-10 pb-20 mx-3'>
-                    <div className='flex-col gap-4 flex mb-8 items-center md:flex-row md:justify-between'>
-                        <span className='block text-xl font-semibold'>Отзывы</span>
-                        <button onClick={() => { setModalActive(true) }} className='px-5 py-3 w-full max-w-[200px] whitespace-nowrap bg-orange-500/70 font-semibold rounded-xl hover:bg-orange-500/90'>Оставить отзыв</button>
-                    </div>
-                    <div className='flex flex-col gap-5'>
 
-                        {toy?.reviews.map((item) => (
-                            <Review description={item.description} username={item.username} title={item.title} />
-                        ))}
-
-                        {/* <Review />
-                        <Review/>
-                        <Review/> */}
-
-                    </div>
-                </div>
-
-            </div>
-
+            </>}
             <Footer />
         </div>
     )
