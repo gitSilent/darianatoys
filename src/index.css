@@ -3,27 +3,6 @@
 @tailwind utilities;
 
 
-/* @font-face {
-  font-family: "HelveticaRegular";
-  src: local("HelveticaRegular"),
-   url("./fonts/Helvetica/helvetica_regular.otf") format("truetype");
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: "HelveticaBold";
-  src: local("HelveticaBold"),
-   url("./fonts/Helvetica/helvetica_bold.otf") format("truetype");
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: "HelveticaLight";
-  src: local("HelveticaLight"),
-   url("./fonts/Helvetica/helvetica_light.otf") format("truetype");
-  font-weight: normal;
-} */
-
 @layer utilities{
   .svgIcons{
     width: calc(30px + 1vw);
@@ -48,8 +27,4 @@ body{
 
 }
 
-
-/* .auto-height{
-  height: calc(100% - 112px);
-} */
 

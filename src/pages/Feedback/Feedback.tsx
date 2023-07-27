@@ -62,7 +62,9 @@ export default function Feedback() {
     <div className=''>
       <ToastContainer/>
       <Header/>
-      <div className='pt-[78px] relative h-[100vh]'>
+      <div className='xs:h-[78px] md:h-[115px]'></div>
+
+      <div className='relative'>
         <h2 className='pt-8 font-bold m-auto w-fit text-4xl lg:pt-16'>Свяжитесь с нами</h2>
         <form onSubmit={handleSubmit(onSubmit)} className='mt-11 px-3 flex flex-col gap-5 items-center lg:flex-col lg:gap-5 lg:items-center'>
 

@@ -3,7 +3,7 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import ProductCard from '../../components/ProductCard/ProductCard'
 import { getProducts } from '../../services/api/products'
-import { IProduct, IProductPageInfo } from '../../types/types'
+import { IProductPageInfo } from '../../types/types'
 import { productsUrl } from '../../services/api/urls'
 import { ToastContainer, toast } from 'react-toastify';
 import { textStyle } from '../../styles/style'
@@ -14,13 +14,12 @@ export default function Products() {
   const [toys, setToys] = useState<IProductPageInfo[]>()
 
   useEffect(() => {
-    
+
     getProducts(productsUrl)
       .then(data => {
         setToys(data.data.results)
       })
       .catch(data => {
-        console.log(data);
         toast.error(data.response.data, {
           position: "top-right",
           autoClose: 1000,
@@ -35,14 +34,15 @@ export default function Products() {
 
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(toys);
-    
-  },[toys])
+
+  }, [toys])
 
   return (
-    <div className='pt-[120px]' >
+    <div className='' >
       <Header />
+      <div className='xs:h-[78px] md:h-[115px]'></div>
       <ToastContainer />
       <h2 className={textStyle.titlesText}>Товары</h2>
       <div className='mt-11 px-3 flex flex-col gap-5 items-center lg:flex-row lg:flex-wrap lg:gap-5 lg:justify-center'>
@@ -64,6 +64,7 @@ export default function Products() {
     </div>
   )
 }
+
 function UseRef() {
   throw new Error('Function not implemented.')
 }

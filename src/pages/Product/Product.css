@@ -1,6 +1,9 @@
 .swiper {
     width: 100%;
     height: 100%;
+    max-width: 430px;
+    max-height: 360px;
+    margin-bottom: 20px;
   }
   
   .swiper-slide {
@@ -19,6 +22,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 30px;
   }
   
   .swiper {

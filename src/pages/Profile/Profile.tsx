@@ -29,12 +29,11 @@ export default function Profile() {
 
 
   return (
-    <div className='mt-[81px]'>
+    <div className=''>
       <Header/>
+      <div className='xs:h-[78px] md:h-[115px]'></div>
 
-
-
-      <h2 className='font-bold m-auto w-fit text-xl my-10 lg:pt-16'>Личные данные</h2>
+      <h2 className='font-bold m-auto w-fit text-xl my-10'>Личные данные</h2>
       <div className='flex flex-col w-full px-5 gap-5 m-auto h-[100vh] lg:w-3/4 lg:max-w-3xl'>
         <div className='flex flex-col gap-3 lg:flex-row justify-between lg:gap-10 items-center'>
           <span className='block w-fit font-semibold text-xl'>Имя пользователя</span>
