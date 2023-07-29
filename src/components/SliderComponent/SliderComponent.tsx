@@ -23,7 +23,7 @@ const Slider = ({ slides }) => {
       {slides && slides.map((slide, index) => (
         <div className=" ">
           <SwiperSlide key={index}>
-            <img src={"http://plush-toy.shop" + slide.photo} alt={`Slide ${index}`} width={100} height={100} className='' />
+            <img src={slide.image_url} alt={`Slide ${index}`} width={100} height={100} className='' />
           </SwiperSlide>
         </div>
       ))}

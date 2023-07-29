@@ -7,6 +7,7 @@ import { minusIcon,plusIcon } from '../../media/svgIcons'
 import { authCheck } from '../../services/api/authorization'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import './CartItem.css'
 interface IProps {
     img: string,
     amount: number,
@@ -134,12 +135,12 @@ export default function CartItem({ toy, amount,toysInCart,setToysInCart }: IProp
         
       })
     return (
-        <div className='relative flex flex-col gap-10 items-center w-full h-fit p-9 border rounded-xl min-w-[280px] max-w-[1180px] m-auto my-5 lg:flex-row lg:justify-center'>
+        <div className='relative flex flex-col gap-14 items-center w-full h-fit p-9 border rounded-xl min-w-[280px] max-w-[1180px] m-auto my-5 lg:flex-row lg:justify-center'>
             <ToastContainer />
             <img src={toys} alt="" className='rounded-xl object-cover max-w-[250px]' />
             <div className='flex flex-col justify-center gap-1 min-w-[250px] lg:mb-auto'>
-                <h3 className='font-bold text-xl'>{toy.title}</h3>
-                <p className='hidden max-w-[350px] lg:block'>{toy.description} </p>
+                <h3 className='font-bold text-2xl w-fit mx-auto lg:mx-0'>{toy.title}</h3>
+                <p className='hidden text-limit lg:w-[250px] lg:block'>{toy.description} </p>
             </div>
 
             <hr className='bg-black w-3/4 my-4 lg:hidden' />

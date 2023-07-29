@@ -24,6 +24,11 @@ body{
   padding: 19px;
   border-radius: 10px;
   font-weight: 300;
-
 }
-
+.text-limit {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Установите количество строк, которые хотите отобразить */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
