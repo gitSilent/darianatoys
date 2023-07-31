@@ -14,8 +14,8 @@ export default function Products() {
 
   const [toys, setToys] = useState<IProductPageInfo[]>()
   const [isLoading, setIsLoading] = useState(true)
-  useEffect(() => {
 
+  useEffect(() => {
     getProducts(productsUrl)
       .then(data => {
         setToys(data.data.results)
@@ -33,9 +33,7 @@ export default function Products() {
           theme: "light",
         })
         setIsLoading(false)
-
       })
-
   }, [])
 
   useEffect(() => {
@@ -44,39 +42,38 @@ export default function Products() {
   }, [toys])
 
   return (
-    <div className='' >
+    <div className='wrapper'>
       <Header />
-      <div className='xs:h-[78px] md:h-[115px]'></div>
-      
-      {isLoading ? <Loader/>
-      :
-      <>
-        <ToastContainer />
-        <h2 className={textStyle.titlesText}>Товары</h2>
-        <div className='mt-11 px-3 flex flex-col gap-5 items-center lg:flex-row lg:flex-wrap lg:gap-5 lg:justify-center'>
-        
-          {toys?.map((item, idx) => {
-            return <ProductCard
-            category={item.category}
-            id={item.id}
-            overall_rating={item.overall_rating}
-            reviews={item.reviews}
-            title={item.title}
-            slug={item?.slug}
-            photos={item?.photos}
-            description={item?.description}
-            cost={item?.cost} />
-          })}
+      <main className='mainContainer'>
+        <div className='xs:h-[78px] md:h-[115px]'></div>
 
-        </div>
-      </>
-}
+        {isLoading ? <Loader />
+          :
+          <>
+            <ToastContainer />
+            <h2 className={textStyle.titlesText}>Товары</h2>
+            <div className='mt-11 px-3 flex flex-col gap-5 items-center lg:flex-row lg:flex-wrap lg:gap-5 lg:justify-center'>
+
+              {toys?.map((item, idx) => {
+                return <ProductCard
+                  key={idx}
+                  category={item.category}
+                  id={item.id}
+                  overall_rating={item.overall_rating}
+                  reviews={item.reviews}
+                  title={item.title}
+                  slug={item?.slug}
+                  photos={item?.photos}
+                  description={item?.description}
+                  cost={item?.cost} />
+              })}
+
+            </div>
+          </>
+        }
+      </main>
       <Footer />
     </div>
   )
-}
-
-function UseRef() {
-  throw new Error('Function not implemented.')
 }
 

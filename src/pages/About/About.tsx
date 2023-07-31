@@ -34,29 +34,36 @@ export default function About() {
 
 
   return (
-    <div className=''>
+    <div className='wrapper'>
       <Header />
-      <div className='xs:h-[78px] md:h-[115px]'></div>
-      <h2 className={textStyle.titlesText}>О нас</h2>
-      <div className='px-5 md:px-10'>
+      <main className='mainContainer'>
+        <div className='xs:h-[78px] md:h-[115px]'></div>
+        <h2 className={textStyle.titlesText}>О нас</h2>
+        <div className='px-5 md:px-10'>
 
-        {staticData.map((item, idx) => {
-          return (
-            <>
-              <div className='flex flex-col items-center lg:flex-row lg:gap-9 lg:max-w-6xl lg:m-auto' key={idx}>
-                <img src={item.img} alt="" />
-                <div className='flex flex-col items-center gap-5'>
-                  <h3 className='font-bold uppercase xs:text-xl sm:text-2xl'>{item.title}</h3>
-                  <p className='font-light xs:text-lg sm:text-xl mb-10 text-gray-800'>{item.desc}</p>
+          {staticData.map((item, idx) => {
+            return (
+              <>
+                <div className='flex flex-col items-center lg:flex-row lg:gap-9 lg:max-w-6xl lg:m-auto' key={idx}>
+                  <img src={item.img} alt="" />
+                  <div className='flex flex-col items-center gap-5'>
+                    <h3 className='font-bold uppercase xs:text-xl sm:text-2xl'>{item.title}</h3>
+                    <p className='font-light xs:text-lg sm:text-xl mb-10 text-gray-800'>{item.desc}</p>
+                  </div>
                 </div>
-              </div>
-              <hr className='h-[2px] w-3/4 m-auto bg-black/20' />
-            </>
-          )
-        })}
+                <hr className='h-[2px] w-3/4 m-auto bg-black/20' />
+              </>
+            )
+          })}
 
-      </div>
+        </div>
+      </main>
       <Footer />
     </div>
+
+
+
+
+
   )
 }

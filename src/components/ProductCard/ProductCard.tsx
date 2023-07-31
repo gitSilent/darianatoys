@@ -62,7 +62,7 @@ export default function ProductCard({ category, slug, photos, description, cost,
   return (
     <div className='min-w-[350px] max-w-[480px] min-h-[460px] max-h-[560px] relative border border-gray-400 rounded-xl hover:cursor-pointer hover:scale-[101%] duration-[150ms] '>
       <Link to={`/product/?id=${slug}`}>
-        <img src={photos[0].photo} alt="product" className='object-cover w-full min-h-[350px] rounded-tr-xl rounded-tl-xl ' />
+        <img src={photos[0].image_url} alt="product" className='object-cover w-full min-h-[350px] rounded-tr-xl rounded-tl-xl ' />
       </Link>
       <div className='px-5 pb-5 flex flex-row justify-between items-center'>
         <div className=''>
@@ -72,6 +72,5 @@ export default function ProductCard({ category, slug, photos, description, cost,
         <img src={to_cart} alt="add to cart" className='w-[72px] h-[72px] hover:cursor-pointer hover:scale-110 duration-500' onClick={handleCartBtn} />
       </div>
     </div>
-
   )
 }

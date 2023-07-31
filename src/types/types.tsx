@@ -25,7 +25,7 @@ export interface IJWTKeys {
 }
 
 export interface IMainPagePicture {
-    photo: string
+    image_url: string
 }
 
 export interface IProductToCart {

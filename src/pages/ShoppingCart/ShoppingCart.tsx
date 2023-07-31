@@ -29,37 +29,39 @@ export default function ShoppingCart() {
 
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(toysInCart);
-    
-  },[toysInCart])
+
+  }, [toysInCart])
 
   return (
-    <>
-      <div className='justify-between'>
-        <Header />
-      <div className='xs:h-[78px] md:h-[115px]'></div>
+    <div className='wrapper'>
+      <Header />
+      <main className='mainContainer'>
+        <div className='justify-between'>
+          <div className='xs:h-[78px] md:h-[115px]'></div>
 
-        <h2 className={textStyle.titlesText}>Корзина</h2>
-        {isLoading ? <Loader/>
-      :
-      <>
-        <div className='px-10'>
-          {toysInCart?.items.length !== 0 ? toysInCart?.items.map((item, idx) => (
-            <CartItem key={idx} img={""} toy={item.toy} amount={item.amount} toysInCart={toysInCart} setToysInCart={setToysInCart}/>
-            ))
+          <h2 className={textStyle.titlesText}>Корзина</h2>
+          {isLoading ? <Loader />
             :
-            <h3 className="mt-14 text-4xl mx-auto w-fit">Корзина пуста</h3>
-          }
-          {toysInCart?.items.length ? <span className='block mt-16 font-medium text-4xl w-fit m-auto'>Итого: {toysInCart?.total_price} р.</span> : <></>}
-          {toysInCart?.items.length ? <button className='block rounded-xl mt-10 py-3 px-10 font-bold text-2xl w-fit bg-amber-600 m-auto hover:bg-amber-700'>Оформить заказ</button> : <></>}
+            <>
+              <div className='px-10'>
+                {toysInCart?.items.length !== 0 ? toysInCart?.items.map((item, idx) => (
+                  <CartItem key={idx} img={""} toy={item.toy} amount={item.amount} toysInCart={toysInCart} setToysInCart={setToysInCart} />
+                ))
+                  :
+                  <h3 className="mt-14 text-4xl mx-auto w-fit">Корзина пуста</h3>
+                }
+                {toysInCart?.items.length ? <span className='block mt-16 font-medium text-4xl w-fit m-auto'>Итого: {toysInCart?.total_price} р.</span> : <></>}
+                {toysInCart?.items.length ? <button className='block rounded-xl mt-10 py-3 px-10 font-bold text-2xl w-fit bg-amber-600 m-auto hover:bg-amber-700'>Оформить заказ</button> : <></>}
 
+              </div>
+
+            </>}
         </div>
-
-      </>}
-      </div>
+      </main>
       <Footer />
-    </>
+    </div>
 
   )
 }
