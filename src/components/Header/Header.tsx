@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import Menu from './Menu/Menu'
 import { LogoSvg, cartSvg, profileSvg } from '../../media/svgIcons'
 import { textStyle } from '../../styles/style'
+import Menu from './Menu/Menu'
 
 export default function Header() {
     return (

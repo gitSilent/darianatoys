@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import CartItem from '../../components/CartItem/CartItem'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
+import { useEffect, useState } from 'react'
 import { getCart } from '../../services/api/cart'
 import { IToysInCart } from '../../types/types'
 import { useNavigate } from 'react-router-dom'
 import { textStyle } from '../../styles/style'
+import CartItem from '../../components/CartItem/CartItem'
+import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
 import Loader from '../../components/Loader/Loader'
 
 export default function ShoppingCart() {
@@ -29,11 +29,6 @@ export default function ShoppingCart() {
 
   }, [])
 
-  useEffect(() => {
-    console.log(toysInCart);
-
-  }, [toysInCart])
-
   return (
     <div className='wrapper'>
       <Header />
@@ -45,15 +40,21 @@ export default function ShoppingCart() {
           {isLoading ? <Loader />
             :
             <>
-              <div className='px-10'>
+              <div className='flex flex-col justify-center items-center sm:max-lx:mx-7'>
                 {toysInCart?.items.length !== 0 ? toysInCart?.items.map((item, idx) => (
-                  <CartItem key={idx} img={""} toy={item.toy} amount={item.amount} toysInCart={toysInCart} setToysInCart={setToysInCart} />
+                  <CartItem
+                    key={idx}
+                    img={""}
+                    toy={item.toy}
+                    amount={item.amount}
+                    toysInCart={toysInCart}
+                    setToysInCart={setToysInCart} />
                 ))
                   :
                   <h3 className="mt-14 text-4xl mx-auto w-fit">Корзина пуста</h3>
                 }
-                {toysInCart?.items.length ? <span className='block mt-16 font-medium text-4xl w-fit m-auto'>Итого: {toysInCart?.total_price} р.</span> : <></>}
-                {toysInCart?.items.length ? <button className='block rounded-xl mt-10 py-3 px-10 font-bold text-2xl w-fit bg-amber-600 m-auto hover:bg-amber-700'>Оформить заказ</button> : <></>}
+                {toysInCart?.items.length ? <span className='block mt-3 font-medium text-2xl w-fit m-auto'>Итого: {toysInCart?.total_price} р.</span> : <></>}
+                {toysInCart?.items.length ? <button className='block rounded-xl mt-5 py-3 px-8 text-xl w-fit bg-orange-500/50 m-auto hover:bg-orange-500/70'>Оформить заказ</button> : <></>}
 
               </div>
 

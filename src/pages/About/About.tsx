@@ -1,10 +1,10 @@
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
+import { textStyle } from '../../styles/style'
+import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
 import toy_1 from '../../media/toy_1.jpg'
 import toy_2 from '../../media/toy_2.jpg'
 import toy_3 from '../../media/toy_3.jpg'
 import toy_4 from '../../media/toy_4.jpg'
-import { textStyle } from '../../styles/style'
 
 export default function About() {
 
@@ -43,8 +43,8 @@ export default function About() {
 
           {staticData.map((item, idx) => {
             return (
-              <>
-                <div className='flex flex-col items-center lg:flex-row lg:gap-9 lg:max-w-6xl lg:m-auto' key={idx}>
+              <div key={idx}>
+                <div className='flex flex-col items-center lg:flex-row lg:gap-9 lg:max-w-6xl lg:m-auto'>
                   <img src={item.img} alt="" />
                   <div className='flex flex-col items-center gap-5'>
                     <h3 className='font-bold uppercase xs:text-xl sm:text-2xl'>{item.title}</h3>
@@ -52,7 +52,7 @@ export default function About() {
                   </div>
                 </div>
                 <hr className='h-[2px] w-3/4 m-auto bg-black/20' />
-              </>
+              </div>
             )
           })}
 

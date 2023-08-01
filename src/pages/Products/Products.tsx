@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
-import ProductCard from '../../components/ProductCard/ProductCard'
 import { getProducts } from '../../services/api/products'
 import { IProductPageInfo } from '../../types/types'
 import { productsUrl } from '../../services/api/urls'
 import { ToastContainer, toast } from 'react-toastify';
 import { textStyle } from '../../styles/style'
-import { CircularProgress } from '@mui/material'
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
+import ProductCard from '../../components/ProductCard/ProductCard'
 import Loader from '../../components/Loader/Loader'
+
 
 export default function Products() {
 
@@ -36,11 +36,6 @@ export default function Products() {
       })
   }, [])
 
-  useEffect(() => {
-    console.log(toys);
-
-  }, [toys])
-
   return (
     <div className='wrapper'>
       <Header />
@@ -55,19 +50,8 @@ export default function Products() {
             <div className='mt-11 px-3 flex flex-col gap-5 items-center lg:flex-row lg:flex-wrap lg:gap-5 lg:justify-center'>
 
               {toys?.map((item, idx) => {
-                return <ProductCard
-                  key={idx}
-                  category={item.category}
-                  id={item.id}
-                  overall_rating={item.overall_rating}
-                  reviews={item.reviews}
-                  title={item.title}
-                  slug={item?.slug}
-                  photos={item?.photos}
-                  description={item?.description}
-                  cost={item?.cost} />
+                return <ProductCard key={idx} category={item.category} id={item.id} overall_rating={item.overall_rating} reviews={item.reviews} title={item.title} slug={item?.slug} photos={item?.photos} description={item?.description} cost={item?.cost} />
               })}
-
             </div>
           </>
         }

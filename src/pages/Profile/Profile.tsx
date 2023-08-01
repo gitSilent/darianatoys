@@ -1,10 +1,9 @@
-import React from 'react'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
-import OrderCard from '../../components/OrderCard/OrderCard'
 import { getPurchasesUrl } from '../../services/api/urls'
 import { getPurchases } from '../../services/api/purchases'
 import { useNavigate } from 'react-router-dom'
+import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
+import OrderCard from '../../components/OrderCard/OrderCard'
 
 export default function Profile() {
 

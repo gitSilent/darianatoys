@@ -1,10 +1,11 @@
-import to_cart from '../../media/to_cart.svg'
 import { Link, useNavigate } from 'react-router-dom'
-import { IProduct, IProductPageInfo, ITokenInfoDecoded } from '../../types/types'
 import { toast } from 'react-toastify'
 import { addToCart } from '../../services/api/cart'
 import { useState } from 'react'
 import { authCheck } from '../../services/api/authorization'
+import { cartSvg } from '../../media/svgIcons'
+import { IProductPageInfo, ITokenInfoDecoded } from '../../types/types'
+
 
 
 export default function ProductCard({ category, slug, photos, description, cost, title, id }: IProductPageInfo) {
@@ -60,16 +61,18 @@ export default function ProductCard({ category, slug, photos, description, cost,
   }
 
   return (
-    <div className='min-w-[350px] max-w-[480px] min-h-[460px] max-h-[560px] relative border border-gray-400 rounded-xl hover:cursor-pointer hover:scale-[101%] duration-[150ms] '>
+    <div className='group overflow-hidden min-w-[250px] max-w-[480px] min-h-[460px] max-h-[560px] relative border border-gray-400 rounded-xl hover:cursor-pointer '>
       <Link to={`/product/?id=${slug}`}>
-        <img src={photos[0].image_url} alt="product" className='object-cover w-full min-h-[350px] rounded-tr-xl rounded-tl-xl ' />
+        <img src={photos[0].image_url} alt="product" className=' min-w-[250px] group-hover:scale-[101%] duration-[250ms] object-cover w-[380px] h-[350px] rounded-tr-xl rounded-tl-xl ' />
       </Link>
       <div className='px-5 pb-5 flex flex-row justify-between items-center'>
         <div className=''>
           <span className='block mt-4 font-semibold text-xl'>{title}</span>
           <span className='block font-normal text-2xl mt-3'>{cost} р.</span>
         </div>
-        <img src={to_cart} alt="add to cart" className='w-[72px] h-[72px] hover:cursor-pointer hover:scale-110 duration-500' onClick={handleCartBtn} />
+        <div className='flex items-center justify-center w-fit h-fit p-2 pb-3 hover:border-amber-800 hover:cursor-pointer' onClick={handleCartBtn}>
+          {cartSvg}
+        </div>
       </div>
     </div>
   )

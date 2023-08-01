@@ -11,7 +11,7 @@ export default function Modal({active, setActive,children}:React.PropsWithChildr
     const modalStyles = 'flex bg-black/50 fixed top-0 left-0 w-[100vw] h-[100vh] z-50 justify-center items-center'
   return (
     <div onClick={()=>{setActive(false)}} className={active ? modalStyles : "hidden"}>
-        <div onClick={(e)=>{e.stopPropagation()}} className='py-10 px-5 bg-white w-fit h-fit rounded-xl'>
+        <div onClick={(e)=>{e.stopPropagation()}} className='p-8 md:py-10 px-5 bg-white w-fit h-fit rounded-xl'>
             {children}
         </div>
     </div>

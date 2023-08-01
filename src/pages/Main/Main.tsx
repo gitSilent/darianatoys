@@ -44,7 +44,7 @@ export default function Main() {
       <Header />
       <main className='mainContainer'>
         <div className='w-full h-[672px] relative md:h-[572px]'>
-          <span className='absolute z-20 font-bold text-white text-6xl top-2/4 px-4 md:text-8xl md:left-10 '>МАГИЯ <br /> КРЮЧКОМ</span>
+          <span className='absolute z-20 font-bold text-white xs:text-5xl sm:text-6xl top-2/4 px-4 md:text-8xl md:left-10 '>МАГИЯ <br /> КРЮЧКОМ</span>
           <div className='absolute left-0 top-0 w-full h-full z-10 bg-black/70'></div>
           <img className='absolute left-0 top-0 w-full h-full z-0 object-cover' src={main_bg} alt="" />
         </div>
@@ -66,7 +66,7 @@ export default function Main() {
 
         <span className={textStyle.titlesText}>Наши работы</span>
 
-        <div className='flex flex-wrap flex-col items-center px-3 gap-5 md:flex-row md:m-auto md:justify-center'>
+        <div className='flex flex-wrap flex-col items-center px-3 gap-9 md:flex-row md:m-auto md:justify-center'>
 
           {toys?.map((item, idx) => {
             return <MainImage
@@ -76,6 +76,7 @@ export default function Main() {
           })}
 
         </div>
+        
       </main>
       <Footer />
     </div>

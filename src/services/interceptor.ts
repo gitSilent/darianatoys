@@ -1,14 +1,8 @@
-import axios from "axios";
-import { getTokensUrl, refreshTokenUrl } from "./api/urls";
+import { refreshTokenUrl } from "./api/urls";
 import { addMinutes } from "./serviceFuncs/addMinutes";
-import { useNavigate } from "react-router-dom";
-import { NavigateFunc } from "./navigate";
-
+import axios from "axios";
 
 export const instance = axios.create({
-  // к запросу будет прикрепляться cookies
-//   withCredentials: true,
-//   baseURL: "https://jsonplaceholder.typicode.com/",
 });
 
 
@@ -36,19 +30,18 @@ instance.interceptors.response.use(
   async (error) => {
     // если при получении ошибки в куках нет refresh ключа (истек), то сразу делаем соответствующий return о том, что токен истек и
     //пользователю нужно переавторизоваться 
-      let refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refresh\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-      if (refreshToken === ""){
-          return false
-        }
-        
-        const originalRequest = {...error.config};
-        console.log(originalRequest.headers.Authorization);
-        
+    let refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refresh\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    if (refreshToken === "") {
+      return false
+    }
+
+    const originalRequest = { ...error.config };
+
     // предотвращаем зацикленный запрос, добавляя свойство _isRetry 
-   originalRequest._isRetry = true; 
+    originalRequest._isRetry = true;
     if (
       // проверим, что ошибка именно из-за невалидного accessToken
-      error.response.status === 401 && 
+      error.response.status === 401 &&
       // проверим, что запрос не повторный
       error.config &&
       !error.config._isRetry
@@ -56,24 +49,21 @@ instance.interceptors.response.use(
       try {
         // запрос на обновление токенов
 
-        const resp = await instance.post(refreshTokenUrl,{
-            "refresh":refreshToken
+        const resp = await instance.post(refreshTokenUrl, {
+          "refresh": refreshToken
         });
         // сохраняем новый accessToken в куки
         let currentDate = new Date();
-        console.log(resp);
-        
-        let newAccessToken = `access=${resp.data.access}; expires=${addMinutes(currentDate,15)}`
+
+        let newAccessToken = `access=${resp.data.access}; expires=${addMinutes(currentDate, 15)}`
         // кладем новый полученный access токен в куки и устанавливаем его в headers для повторного запроса авторизации
         document.cookie = newAccessToken;
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
-        console.log(originalRequest);
-        
+
         // localStorage.setItem("token", resp.data.accessToken);
         // переотправляем запрос с обновленным accessToken
         return instance.request(originalRequest);
       } catch (error) {
-        console.log("AUTH ERROR");
       }
     }
     // на случай, если возникла другая ошибка (не связанная с авторизацией)

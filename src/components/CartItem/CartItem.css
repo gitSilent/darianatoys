@@ -1,6 +1,6 @@
 .text-limit {
     display: -webkit-box;
-    -webkit-line-clamp: 8; /* Установите количество строк, которые хотите отобразить */
+    -webkit-line-clamp: 4; /* Установите количество строк, которые хотите отобразить */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;

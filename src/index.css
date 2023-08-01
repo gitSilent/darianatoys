@@ -26,6 +26,7 @@
 
 html,body{
   height: 100%;
+  overflow-x: hidden;
 }
 
 body{
@@ -35,14 +36,20 @@ body{
 
 .default-input{
   border: 1px solid rgb(79, 79, 79);
-  padding: 19px;
+  padding: 16px;
   border-radius: 10px;
   font-weight: 300;
 }
+
 .text-limit {
   display: -webkit-box;
   -webkit-line-clamp: 2; /* Установите количество строк, которые хотите отобразить */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+button:hover{
+  transform: scale(101%);
+  transition-duration: 250ms;
 }

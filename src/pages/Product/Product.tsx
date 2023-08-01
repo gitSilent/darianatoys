@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react'
 import { IProductPageInfo, ITokenInfoDecoded } from '../../types/types'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { productUrl } from '../../services/api/urls'
 import { retriveProduct } from '../../services/api/products'
 import { ToastContainer, toast } from 'react-toastify'
 import { addToCart } from '../../services/api/cart'
 import { authCheck } from '../../services/api/authorization'
+import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
 import Review from '../../components/Review/Review'
 import ModalReview from '../../components/ModalReview/ModalReview'
 import SliderComponent from '../../components/SliderComponent/SliderComponent'
+import Loader from '../../components/Loader/Loader'
 
 import "./Product.css"
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import Loader from '../../components/Loader/Loader'
+
 
 export default function Product() {
     const [modalActive, setModalActive] = useState(false);
@@ -33,12 +34,10 @@ export default function Product() {
         // проверяем факт авторизации пользователя
         authCheck()
             .then((response) => {
-                console.log(response);
                 //если у пользователя не истек refresh токен, то обновляется access и выполняется добавление в корзину
                 if (response) {
 
                     let accessToken = document.cookie.replace(/(?:(?:^|.*;\s*)access\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-                    console.log(accessToken);
 
                     const tokenInfo = accessToken.split('.')[1]
                     const tokenInfoDecoded: ITokenInfoDecoded = JSON.parse(window.atob(tokenInfo))
@@ -55,8 +54,6 @@ export default function Product() {
             user: userInfoFromToken?.user_id,
             amount: 1
         }).then((response) => {
-            console.log(response);
-
             toast(response?.data?.responce)
 
         }).catch((er: any) => {
@@ -73,13 +70,11 @@ export default function Product() {
         retriveProduct(productUrl, parametres.get("id"))
             .then(data => {
                 const productInfo: IProductPageInfo = data.data;
-                console.log(productInfo);
                 setToy(productInfo)
                 setIsLoading(false)
 
             })
             .catch(data => {
-                console.log(data);
                 toast.error(data.response.data, {
                     position: "top-right",
                     autoClose: 1000,
@@ -131,12 +126,12 @@ export default function Product() {
                             <div className='flex flex-col my-10 pb-20 mx-3'>
                                 <div className='flex-col gap-4 flex mb-8 items-center md:flex-row md:justify-between'>
                                     <span className='block text-xl font-semibold'>Отзывы</span>
-                                    <button onClick={() => { setModalActive(true) }} className='px-5 py-3 w-full max-w-[200px] whitespace-nowrap bg-orange-500/70 font-semibold rounded-xl hover:bg-orange-500/90'>Оставить отзыв</button>
+                                    <button onClick={() => { setModalActive(true) }} className='px-5 py-3 w-full max-w-[200px] whitespace-nowrap bg-orange-500/50 font-semibold rounded-xl hover:bg-orange-500/70'>Оставить отзыв</button>
                                 </div>
                                 <div className='flex flex-col gap-5'>
 
-                                    {toy?.reviews.map((item) => (
-                                        <Review description={item.description} username={item.username} title={item.title} />
+                                    {toy?.reviews.map((item, idx) => (
+                                        <Review description={item.description} username={item.username} title={item.title} key={idx}/>
                                     ))}
                                 </div>
                             </div>

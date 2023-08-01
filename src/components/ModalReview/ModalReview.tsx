@@ -1,20 +1,18 @@
 import React, { Dispatch, SetStateAction, useState } from 'react'
-import Modal from '../Modal/Modal'
 import { useForm } from 'react-hook-form';
 import { Rating } from '@mui/material';
 import { authCheck } from '../../services/api/authorization';
 import { IProductPageInfo, IReviewData, ITokenInfoDecoded } from '../../types/types';
 import { useNavigate } from 'react-router-dom';
-import { instance } from '../../services/interceptor';
 import { sendReview } from '../../services/api/products';
 import { ToastContainer,toast } from 'react-toastify';
+import Modal from '../Modal/Modal'
 
 interface IProps{
     active:boolean,
     setActive:Dispatch<SetStateAction<boolean>>,
     toy:IProductPageInfo | undefined,
 }
-// const [toy, setToy] = useState<IProductPageInfo>()
 
 export default function ModalReview({active,setActive,toy}:React.PropsWithChildren<IProps>) {
     const [rating, setRating] = useState<number>(0)
@@ -31,13 +29,10 @@ export default function ModalReview({active,setActive,toy}:React.PropsWithChildr
 
         authCheck()
         .then((response)=>{
-            console.log(response);
-            console.log();
             //если у пользователя не истек refresh токен, то обновляется access и выполняется добавление в корзину
             if (response){
                 
                 let accessToken = document.cookie.replace(/(?:(?:^|.*;\s*)access\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-                console.log(accessToken);
                 
                 const tokenInfo = accessToken.split('.')[1]
                 const tokenInfoDecoded:ITokenInfoDecoded = JSON.parse(window.atob(tokenInfo))
@@ -50,15 +45,11 @@ export default function ModalReview({active,setActive,toy}:React.PropsWithChildr
                     "toy":toy?.category.id,
                     "user":tokenInfoDecoded.user_id
                 }
-                console.log(reviewData);
-                console.log(toy?.slug);
 
                 sendReview(toy?.slug, reviewData)
                 .then((response)=>{
-                    console.log(response);
                     toast(response.data.responce)
                 }).catch((er)=>{
-                    console.log(er);
                     
                     for (var key of Object.keys(er.response?.data)) {
                         for(let errorText of er.response?.data[key]){
@@ -77,7 +68,7 @@ export default function ModalReview({active,setActive,toy}:React.PropsWithChildr
     <div>
         <Modal active={active} setActive={setActive}> 
         <ToastContainer/>
-            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center px-5 gap-3 md:w-[500px] mx-auto'>
+            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center px-5 gap-3  sm:w-[400px] sl:w-[500px] mx-auto'>
                 <h1 className='w-fit font-bold text-3xl mb-5 md:text-4xl'>Оставить отзыв</h1>
 
                 <input {...register("title", {
@@ -115,7 +106,7 @@ export default function ModalReview({active,setActive,toy}:React.PropsWithChildr
                 size='large'
                 />
 
-            <input type="submit" className='rounded-xl bg-black text-white px-10 py-3 font-semibold mt-5 text-xl hover:cursor-pointer hover:bg-black/90' value="Оставить отзыв" />
+            <input type="submit" className='rounded-xl bg-black text-white px-10 py-3 font-semibold mt-5 text-xl hover:cursor-pointer hover:bg-black/90 hover:scale-[101%] duration-150' value="Оставить отзыв" />
             </form>
         </Modal>
     </div>

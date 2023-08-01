@@ -1,39 +1,39 @@
-import toys from '../../media/toys.jpg'
-import { closeIcon } from '../../media/svgIcons'
 import { addToCart, removeToCart } from '../../services/api/cart'
 import { ToastContainer, toast } from 'react-toastify'
 import { ITokenInfoDecoded, IToyInCartToy, IToysInCart } from '../../types/types'
-import { minusIcon,plusIcon } from '../../media/svgIcons'
+import { minusIcon, plusIcon } from '../../media/svgIcons'
 import { authCheck } from '../../services/api/authorization'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Dispatch, SetStateAction, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import './CartItem.css'
+
 interface IProps {
     img: string,
     amount: number,
     toy: IToyInCartToy,
-    toysInCart:IToysInCart,
-    setToysInCart:Dispatch<SetStateAction<IToysInCart | undefined>>
+    toysInCart: IToysInCart,
+    setToysInCart: Dispatch<SetStateAction<IToysInCart | undefined>>
 }
 
-export default function CartItem({ toy, amount,toysInCart,setToysInCart }: IProps) {
-  const [userInfoFromToken, setUserInfoFromToken] = useState<ITokenInfoDecoded>()
-  const navigate = useNavigate()
+export default function CartItem({ toy, amount, toysInCart, setToysInCart }: IProps) {
 
-  //функция удаления игрушки из корзины, принимает количество удаляемых игрушек
-    function deleteToy(amountToDelete:number){
+    const [userInfoFromToken, setUserInfoFromToken] = useState<ITokenInfoDecoded>()
+    const navigate = useNavigate()
+
+    //функция удаления игрушки из корзины, принимает количество удаляемых игрушек
+    function deleteToy(amountToDelete: number) {
         removeToCart({ toy: toy.id, amount: amountToDelete })
             .then((res) => {
                 if (res.status === 200) {
                     let newToysInCart;
                     //сначала удаляем то количество, которое передано в функцию и обновляем общий стейт toysInChart
-                    const newItems = toysInCart.items.map((item)=>{
-                        if(item.toy.id === toy.id){
+                    const newItems = toysInCart.items.map((item) => {
+                        if (item.toy.id === toy.id) {
                             return {
                                 ...item,
                                 amount: amount - amountToDelete,
                             }
-                        }else{
+                        } else {
                             return item
                         }
                     })
@@ -45,10 +45,10 @@ export default function CartItem({ toy, amount,toysInCart,setToysInCart }: IProp
                     setToysInCart(newToysInCart)
 
                     //в случае, если оставшееся кол-во конкретного товара <= 0, то удаляем товар из свойства items общего стейта toysInChart 
-                    for(let item of toysInCart.items){
+                    for (let item of toysInCart.items) {
 
-                        if(item.toy.id === toy.id && amount - amountToDelete <= 0){
-                            let newItems = toysInCart.items.filter((toyItem)=> { //фильтруем массив игрушек и удаляем элемент по id
+                        if (item.toy.id === toy.id && amount - amountToDelete <= 0) {
+                            let newItems = toysInCart.items.filter((toyItem) => { //фильтруем массив игрушек и удаляем элемент по id
                                 return toyItem.toy.id !== toy.id;
                             });
 
@@ -60,7 +60,6 @@ export default function CartItem({ toy, amount,toysInCart,setToysInCart }: IProp
                             setToysInCart(newToysInCart)
                         }
                     }
-                    // console.log(newToysInCart);
                 }
             })
             .catch(res => {
@@ -80,32 +79,32 @@ export default function CartItem({ toy, amount,toysInCart,setToysInCart }: IProp
     //функция добавления единицы товара при нажатии на знак "+" 
     function addToy() {
         authCheck()
-          .then((response) => {
-            if (response) {
-              let accessToken = document.cookie.replace(/(?:(?:^|.*;\s*)access\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-    
-              const tokenInfo = accessToken.split('.')[1]
-              const tokenInfoDecoded: ITokenInfoDecoded = JSON.parse(window.atob(tokenInfo))
-              setUserInfoFromToken(tokenInfoDecoded)
-    
-            } else {
-              navigate('/authorization')
-            }
-          })
-    
+            .then((response) => {
+                if (response) {
+                    let accessToken = document.cookie.replace(/(?:(?:^|.*;\s*)access\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+                    const tokenInfo = accessToken.split('.')[1]
+                    const tokenInfoDecoded: ITokenInfoDecoded = JSON.parse(window.atob(tokenInfo))
+                    setUserInfoFromToken(tokenInfoDecoded)
+
+                } else {
+                    navigate('/authorization')
+                }
+            })
+
         addToCart({
-          toy: toy.id,
-          user: userInfoFromToken?.user_id,
-          amount: 1
+            toy: toy.id,
+            user: userInfoFromToken?.user_id,
+            amount: 1
         }).then((response) => {
             let newToysInCart;
-            const newItems = toysInCart.items.map((item)=>{
-                if(item.toy.id === toy.id){
+            const newItems = toysInCart.items.map((item) => {
+                if (item.toy.id === toy.id) {
                     return {
                         ...item,
                         amount: amount + 1,
                     }
-                }else{
+                } else {
                     return item
                 }
             })
@@ -115,71 +114,62 @@ export default function CartItem({ toy, amount,toysInCart,setToysInCart }: IProp
                 total_price: toysInCart.total_price + toy.cost
             }
             setToysInCart(newToysInCart)
-    
+
         }).catch((er: any) => {
-          toast.error("Произошла ошибка", {
-            position: "top-right",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          })
+            toast.error("Произошла ошибка", {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         })
-      }
+    }
 
-      useEffect(()=>{
-        console.log(toy);
-        
-      })
     return (
-        <div className='relative flex flex-col gap-14 items-center w-full h-fit p-9 border rounded-xl min-w-[280px] max-w-[1180px] m-auto my-5 lg:flex-row lg:justify-center'>
+        <div className='border p-4 flex flex-col justify-center gap-2 my-4 max-w-7xl sm:max-lx:w-full lx:min-w-[1000px] rounded-xl'>
             <ToastContainer />
-            <img src={toys} alt="" className='rounded-xl object-cover max-w-[250px]' />
-            <div className='flex flex-col justify-center gap-1 min-w-[250px] lg:mb-auto'>
-                <h3 className='font-bold text-2xl w-fit mx-auto lg:mx-0'>{toy.title}</h3>
-                <p className='hidden text-limit lg:w-[250px] lg:block'>{toy.description} </p>
-            </div>
 
-            <hr className='bg-black w-3/4 my-4 lg:hidden' />
+            <div className='flex items-center justify-around xs:max-lg:flex-col xs:max-lg:gap-4'>
 
-            <div className='flex flex-col gap-6 lg:mb-auto'>
-                <div className='flex flex-col gap-2 '>
-                    <h3 className='font-semibold text-2xl lg:m-0'>Детали заказа</h3>
-                    <ul className='list-disc'>
-                        <li>Цена за 1 шт. - {toy.cost} р.</li>
-                        {/* <li>Всего к покупке - {amount} шт.</li> */}
-                    </ul>
-                    <div className='flex flex-row mt-5 w-full gap-3 justify-center items-center '>
-                        <div onClick={()=>{
-                            deleteToy(1)
-                        }}>
-                            {minusIcon}
-                        </div>
-                            
-                        <span className='text-2xl'>{amount} шт.</span>
-
-                        <div onClick={()=>{
-                            addToy()
-                        }}>
-                            {plusIcon}
-                        </div>
+                <Link to={`/product/?id=${toy.slug}`} className='cursor-pointer flex flex-col gap-2 hover:scale-[1.01] duration-150'>
+                    <div>
+                        <h3 className='font-bold text-lg xs:max-md:text-center'>{toy.title}</h3>
                     </div>
+
+                    <div className="max-w-[400px] xs:max-lg:mb-2">
+                        <p className='text-limit xs:max-md:text-center text-gray-600 hover:text-black duration-150'>{toy.description} </p>
+                    </div>
+                </Link>
+
+
+                <div className="border w-2/3 lg:hidden border-orange-200"></div>
+
+                <div className="flex flex-col gap-2 items-center xs:max-lg:mt-2">
+
+                    <div className='flex flex-col gap-2 items-center'>
+                        <h3 className='font-bold text-lg'>Детали заказа</h3>
+                        <ul className=''>
+                            <li>Цена за 1 шт. - {toy.cost} р.</li>
+                        </ul>
+                    </div>
+
+                    <div className='flex items-center gap-5 border p-2 rounded-xl'>
+                        <div onClick={() => { deleteToy(1) }} className='hover:scale-110 hover:text-red-700'>{minusIcon}</div>
+                        <span className=''>{amount} шт.</span>
+                        <div onClick={() => { addToy() }} className='hover:scale-110 hover:text-orange-500'>{plusIcon}</div>
+                    </div>
+
+                    <div className='flex items-center gap-2'>
+                        <h3 className=''>Сумма:</h3>
+                        <span className=''>{toy.cost * amount} р.</span>
+                    </div>
+
                 </div>
 
-                <hr className='bg-black w-full my-4 lg:hidden' />
-
-                <div className='flex flex-row gap-2'>
-                    <h3 className='font-semibold text-2xl lg:m-0'>Сумма</h3>
-                    <span className='font-bold text-2xl'><u>{toy.cost * amount} р.</u></span>
-                </div>
-            </div>
-            <div className="" onClick={() => {
-                deleteToy(amount)
-            }}>
-                {closeIcon}
             </div>
         </div>
     )
