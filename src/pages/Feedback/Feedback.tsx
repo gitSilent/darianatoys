@@ -6,6 +6,7 @@ import { authCheck } from '../../services/api/authorization';
 import { IFeedbackData, ITokenInfoDecoded } from '../../types/types';
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
+import { toastifyErrorParams, toastifyNotificationParams } from '../../services/toastParametres';
 
 export default function Feedback() {
   const navigate = useNavigate()
@@ -35,13 +36,13 @@ export default function Feedback() {
                 navigate('/authorization')
                 return
               }
-              toast("Ваш запрос был отправлен!")
+              toast("Ваш запрос был отправлен!", toastifyNotificationParams)
               reset()
             }).catch((er: any) => {
 
               for (var key of Object.keys(er.response?.data)) {
                 for (let errorText of er.response?.data[key]) {
-                  toast(errorText)
+                  toast(errorText, toastifyErrorParams)
                 }
               }
             })

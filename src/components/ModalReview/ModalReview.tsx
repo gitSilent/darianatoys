@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { sendReview } from '../../services/api/products';
 import { ToastContainer,toast } from 'react-toastify';
 import Modal from '../Modal/Modal'
+import { toastifyErrorParams, toastifyNotificationParams, toastifySuccessParams } from '../../services/toastParametres';
 
 interface IProps{
     active:boolean,
@@ -23,7 +24,7 @@ export default function ModalReview({active,setActive,toy}:React.PropsWithChildr
 
       function onSubmit(data:any){
         if(!rating){
-            toast("Укажите количество звезд рейтинга")
+            toast.error("Укажите количество звезд рейтинга", toastifyErrorParams)
             return
         }
 
@@ -48,14 +49,10 @@ export default function ModalReview({active,setActive,toy}:React.PropsWithChildr
 
                 sendReview(toy?.slug, reviewData)
                 .then((response)=>{
-                    toast(response.data.responce)
-                }).catch((er)=>{
                     
-                    for (var key of Object.keys(er.response?.data)) {
-                        for(let errorText of er.response?.data[key]){
-                        toast(errorText)
-                        }
-                    }
+                    toast(response.data.responce, toastifyNotificationParams)
+                }).catch((er)=>{
+                    toast.error("Ошибка, вы не можете оставить отзыв",toastifyErrorParams)
                 })
             }else{
                 //если у пользователя истек refresh токен, то выполняется переход на страницу авторизации

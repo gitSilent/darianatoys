@@ -9,6 +9,8 @@ import { authCheck } from '../../services/api/authorization'
 import { ITokenInfoDecoded, IUserInfoProfile, IUserOrder } from '../../types/types'
 import { getProfileInfo, setNewUserInfo } from '../../services/api/profile'
 import Loader from '../../components/Loader/Loader'
+import { ToastContainer, toast } from 'react-toastify'
+import { toastifySuccessParams } from '../../services/toastParametres'
 
 export default function Profile() {
   const [isLoading, setIsLoading] = useState(true)
@@ -41,7 +43,6 @@ export default function Profile() {
     //здесь приходят заказы пользователя
     getPurchases(getPurchasesUrl)
       .then((resp) => {
-        console.log(resp);
         setUserOrders(resp.data)
         setIsLoading(false)
 
@@ -50,12 +51,10 @@ export default function Profile() {
 
 //получение информации о пользователе для личного кабинета
   useEffect(()=>{
-    console.log(userInfoFromToken);
     
     if(userInfoFromToken){
       getProfileInfo(userInfoFromToken.user_id)
       .then((resp)=>{
-        console.log(resp);
         setUserInfoFromReq(resp.data)
 
         setCountryInput(resp.data.country)
@@ -79,8 +78,6 @@ export default function Profile() {
   function applyChanges(){
     setNewUserInfo(userInfoFromToken?.user_id, countryInput, cityInput)
     .then((resp)=>{
-      console.log(resp);
-
       if(userInfoFromToken){
         getProfileInfo(userInfoFromToken.user_id)
         .then((resp)=>{
@@ -88,6 +85,9 @@ export default function Profile() {
   
           setCountryInput(resp.data.country)
           setCityInput(resp.data.town)
+
+          toast.success("Данные успешно изменены", toastifySuccessParams)
+    
         })
       }
       
@@ -97,6 +97,7 @@ export default function Profile() {
   return (
     <div className='wrapper'>
       <Header />
+      <ToastContainer/>
       {isLoading ? <Loader />
             :
             <>

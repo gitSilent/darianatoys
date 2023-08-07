@@ -8,9 +8,9 @@ export const LogoSvg: JSX.Element =
                     <g>
                         <svg viewBox="0 0 397.4975999999999 106.94520039829281" height="106.41313472466948" width="395.52">
                             <g>
-                                <rect width="397.4975999999999" height="3.059244809783689" x="0" y="54.89059611599425" fill="#4d331f" opacity="1" stroke-width="0" stroke="transparent" fill-opacity="1" className="rect-o-0" data-fill-palette-color="primary" rx="1%" id="o-0" data-palette-color="#4d331f"></rect>
+                                <rect width="397.4975999999999" height="3.059244809783689" x="0" y="54.89059611599425" fill="#4d331f" opacity="1" strokeWidth="0" stroke="transparent" fillOpacity="1" className="rect-o-0" data-fill-palette-color="primary" rx="1%" id="o-0" data-palette-color="#4d331f"></rect>
                                     </g><g>
-                                        <rect width="397.4975999999999" height="3.059244809783689" x="0" y="61.954088059002665" fill="#4d331f" opacity="1" stroke-width="0" stroke="transparent" fill-opacity="1" className="rect-o-1" data-fill-palette-color="primary" rx="1%" id="o-1" data-palette-color="#4d331f"></rect>
+                                        <rect width="397.4975999999999" height="3.059244809783689" x="0" y="61.954088059002665" fill="#4d331f" opacity="1" strokeWidth="0" stroke="transparent" fillOpacity="1" className="rect-o-1" data-fill-palette-color="primary" rx="1%" id="o-1" data-palette-color="#4d331f"></rect>
                                         </g><g transform="matrix(1,0,0,1,0.9887999999999693,73.0218271352358)">
                                             <svg viewBox="0 0 395.52 33.923373263057016" height="33.923373263057016" width="395.52">
                                                 <g id="textblocktransform">

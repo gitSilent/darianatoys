@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { authUser } from '../../services/api/authorization';
 import { addMinutes } from '../../services/serviceFuncs/addMinutes';
 import { LogoSvg } from '../../media/svgIcons';
+import { toastifyErrorParams, toastifyNotificationParams } from '../../services/toastParametres';
 
 
 export default function Authorization() {
@@ -34,10 +35,10 @@ export default function Authorization() {
         for (var key of Object.keys(er.response?.data)) {
           if (Array.isArray(er.response?.data[key])) {
             for (let errorText of er.response?.data[key]) {
-              toast(errorText)
+              toast(errorText, toastifyErrorParams)
             }
           } else {
-            toast(er.response?.data[key])
+            toast(er.response?.data[key],toastifyErrorParams )
           }
         }
       })

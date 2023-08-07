@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { authCheck } from '../../services/api/authorization'
 import { cartSvg } from '../../media/svgIcons'
 import { IProductPageInfo, ITokenInfoDecoded } from '../../types/types'
+import { toastifyErrorParams, toastifySuccessParams } from '../../services/toastParametres'
 
 
 
@@ -35,35 +36,17 @@ export default function ProductCard({ category, slug, photos, description, cost,
       amount: 1
     }).then((response) => {
 
-      toast.success(response?.data?.responce, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      })
+      toast.success(response?.data?.responce, toastifySuccessParams)
 
     }).catch((er: any) => {
-      toast.error("Произошла ошибка", {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      })
+      toast.error("Произошла ошибка", toastifyErrorParams)
     })
   }
 
   return (
     <div className='group overflow-hidden min-w-[250px] max-w-[480px] min-h-[460px] max-h-[560px] relative border border-gray-400 rounded-xl hover:cursor-pointer '>
       <Link to={`/product/?id=${slug}`}>
-        <img src={photos[0].image_url} alt="product" className=' min-w-[250px] group-hover:scale-[101%] duration-[250ms] object-cover w-[380px] h-[350px] rounded-tr-xl rounded-tl-xl ' />
+        <img src={photos[0].image_url} alt="product" className=' min-w-[250px] object-contain w-[380px] h-[350px] rounded-tr-xl rounded-tl-xl group-hover:scale-[101%] duration-[250ms]' />
       </Link>
       <div className='px-5 pb-5 flex flex-row justify-between items-center'>
         <div className=''>

@@ -5,6 +5,7 @@ import { minusIcon, plusIcon } from '../../media/svgIcons'
 import { authCheck } from '../../services/api/authorization'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { toastifyErrorParams } from '../../services/toastParametres'
 import './CartItem.css'
 
 interface IProps {
@@ -63,16 +64,7 @@ export default function CartItem({ toy, amount, toysInCart, setToysInCart, img }
                 }
             })
             .catch(res => {
-                toast.error("Произошла ошибка", {
-                    position: "top-center",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                })
+                toast.error("Произошла ошибка", toastifyErrorParams)
             })
     }
 
@@ -116,34 +108,21 @@ export default function CartItem({ toy, amount, toysInCart, setToysInCart, img }
             setToysInCart(newToysInCart)
 
         }).catch((er: any) => {
-            toast.error("Произошла ошибка", {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
+            toast.error("Произошла ошибка", toastifyErrorParams)
         })
     }
 
     return (
-        <div className='border p-4 flex flex-col justify-center gap-2 my-4 max-w-7xl sm:max-lx:w-full lx:min-w-[1000px] rounded-xl'>
+        <div className='border p-4 flex flex-col justify-center gap-2 my-4 max-w-7xl xs:max-lx:w-full lx:min-w-[1000px] rounded-xl'>
             <ToastContainer />
 
             <div className='flex items-center justify-around xs:max-lg:flex-col xs:max-lg:gap-4'>
 
-                <Link to={`/product/?id=${toy.slug}`} className='cursor-pointer flex flex-col gap-2 hover:scale-[1.01] duration-150'>
-                    <img src={img} alt="" className='w-[180px]' />
-                    <div>
-                        <h3 className='font-bold text-lg xs:max-md:text-center'>{toy.title}</h3>
-                    </div>
+                <Link to={`/product/?id=${toy.slug}`} className='cursor-pointer flex flex-col items-center gap-2 hover:scale-[1.01] duration-150'>
 
-                    <div className="max-w-[400px] xs:max-lg:mb-2">
-                        <p className='text-limit xs:max-md:text-center text-gray-600 hover:text-black duration-150'>{toy.description} </p>
-                    </div>
+                    <h3 className='font-bold text-lg xs:max-md:text-center'>{toy.title}</h3>
+                    <img src={img} alt="" className='w-[180px]' />
+
                 </Link>
 
 

@@ -11,6 +11,7 @@ import { getProducts } from '../../services/api/products'
 import { productsUrl } from '../../services/api/urls'
 import { toast } from 'react-toastify'
 import MainImage from '../../components/MainImage/MainImage'
+import { toastifyErrorParams } from '../../services/toastParametres'
 
 export default function Main() {
 
@@ -24,16 +25,7 @@ export default function Main() {
         setIsLoading(false)
       })
       .catch(data => {
-        toast.error(data.response.data, {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        })
+        toast.error(data.response.data, toastifyErrorParams)
         setIsLoading(false)
       })
   }, [])
@@ -66,9 +58,9 @@ export default function Main() {
 
         <span className={textStyle.titlesText}>Наши работы</span>
 
-        <div className='flex flex-wrap flex-col items-center px-3 gap-9 md:flex-row md:m-auto md:justify-center'>
+        <div className='flex flex-wrap flex-col items-center px-3 gap-9 md:flex-row md:m-auto md:justify-center max-w-5xl'>
 
-          {toys?.map((item, idx) => {
+          {toys?.slice(0, 6).map((item, idx) => {
             return <MainImage
               key={idx}
               photos={item?.photos}

@@ -9,6 +9,7 @@ import CartItem from '../../components/CartItem/CartItem'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Loader from '../../components/Loader/Loader'
+import { toastifySuccessParams } from '../../services/toastParametres'
 
 export default function ShoppingCart() {
 
@@ -20,17 +21,7 @@ export default function ShoppingCart() {
   function placePurchase(){
     putPurchase()
     .then((resp)=>{
-      console.log(resp);
-      toast.success("Покупка успешно оформлена", {
-        position: "top-center",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.success("Покупка успешно оформлена", toastifySuccessParams);
 
       getCart()
       .then((response) => {
@@ -38,8 +29,6 @@ export default function ShoppingCart() {
           navigate('/authorization')
           return
         }
-        console.log(response.data);
-        
         setToysInCart(response.data)
         setIsLoading(false)
       })
@@ -54,8 +43,6 @@ export default function ShoppingCart() {
           navigate('/authorization')
           return
         }
-        console.log(response.data);
-        
         setToysInCart(response.data)
         setIsLoading(false)
       })

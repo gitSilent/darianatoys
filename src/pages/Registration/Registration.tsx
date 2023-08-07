@@ -5,6 +5,7 @@ import { registerUser } from '../../services/api/registration';
 import { ToastContainer, toast } from 'react-toastify';
 import { LogoSvg } from '../../media/svgIcons';
 import 'react-toastify/dist/ReactToastify.css';
+import { toastifyErrorParams } from '../../services/toastParametres';
 
 export default function Registration() {
   const navigate = useNavigate();
@@ -25,12 +26,12 @@ export default function Registration() {
 
           for (var key of Object.keys(er.response?.data)) {
             for (let errorText of er.response?.data[key]) {
-              toast(errorText)
+              toast.error(errorText, toastifyErrorParams)
             }
           }
         })
     } else {
-      toast("Пароли не совпадают")
+      toast("Пароли не совпадают", toastifyErrorParams)
     }
 
 
@@ -91,9 +92,6 @@ export default function Registration() {
 
         {/* _________________ */}
 
-        {/* <input {...register("email")} type="email" placeholder='E-mail' className='default-input w-full' maxLength={100}/>
-            <input {...register("password")} type="password" placeholder='Пароль' className='default-input w-full' maxLength={100}/>
-            <input type="password" placeholder='Повторите пароль' className='default-input w-full' maxLength={100}/> */}
         <input type="submit" className='rounded-xl bg-black text-white px-5 xs:px-10 py-3 font-semibold mt-5 text-xl hover:cursor-pointer' value="Зарегистрироваться" />
         <span className='block'>Уже есть созданный профиль? <u className='hover:cursor-pointer' onClick={() => { navigate('/authorization') }}>Войти</u></span>
       </form>

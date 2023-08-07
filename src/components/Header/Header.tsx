@@ -6,7 +6,7 @@ import Menu from './Menu/Menu'
 export default function Header() {
     return (
         <>
-            <div className='flex justify-between fixed top-0 left-0 z-40 h-fit bg-white w-full '>
+            <div className='flex justify-between fixed top-0  z-40 h-fit bg-white w-full max-w-[1920px]'>
 
                 <Menu />
 

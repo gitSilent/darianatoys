@@ -11,14 +11,14 @@ SwiperCore.use([Navigation, Pagination, Autoplay]);
 const Slider = ({ slides }) => {
   return (
     <Swiper
-      navigation={window.innerWidth > 400 ? true : false}
+      navigation={window.innerWidth > 768 ? true : false}
       pagination={{ clickable: true }}
       autoplay={{ delay: 3000 }}
     >
       {slides && slides.map((slide, idx) => (
         <div key={idx}>
           <SwiperSlide >
-            <img src={slide.image_url} alt={`Slide ${idx}`} width={100} height={100}  />
+            <img src={slide.image_url} alt={`Slide ${idx}`} />
           </SwiperSlide>
         </div>
       ))}

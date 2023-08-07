@@ -8,6 +8,7 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import ProductCard from '../../components/ProductCard/ProductCard'
 import Loader from '../../components/Loader/Loader'
+import { toastifyErrorParams } from '../../services/toastParametres';
 
 
 export default function Products() {
@@ -22,16 +23,7 @@ export default function Products() {
         setIsLoading(false)
       })
       .catch(data => {
-        toast.error(data.response.data, {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        })
+        toast.error(data.response.data, toastifyErrorParams)
         setIsLoading(false)
       })
   }, [])
