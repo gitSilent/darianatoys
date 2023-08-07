@@ -3,9 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 import { registerUser } from '../../services/api/registration';
 import { ToastContainer, toast } from 'react-toastify';
+import { LogoSvg } from '../../media/svgIcons';
 import 'react-toastify/dist/ReactToastify.css';
-import logo from '../../media/logo.svg'
-
 
 export default function Registration() {
   const navigate = useNavigate();
@@ -40,11 +39,12 @@ export default function Registration() {
   return (
     <div>
       <ToastContainer />
-      <Link className='' to={'/'}>
-        <img className="w-15 mx-auto mt-3" src={logo} alt="logo" />
-      </Link>
+
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col max-w-[500px] items-center mt-[125px] px-5 gap-3 md:w-[500px] mx-auto'>
-        <h1 className='w-fit font-bold text-4xl mb-5'>Регистрация</h1>
+        <Link className='' to={'/'}>
+          <div className="w-15 mx-auto mb-16">{LogoSvg}</div>
+        </Link>
+        <h1 className='w-fit font-bold text-3xl mb-5'>Регистрация</h1>
 
         <input {...register("username", {
           required: "Поле обязательно к заполнению",

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import { authUser } from '../../services/api/authorization';
 import { addMinutes } from '../../services/serviceFuncs/addMinutes';
-import logo from '../../media/logo.svg'
+import { LogoSvg } from '../../media/svgIcons';
 
 
 export default function Authorization() {
@@ -51,13 +51,14 @@ export default function Authorization() {
   return (
     <div className=''>
       <ToastContainer />
-      <Link className='' to={'/'}>
-        <img className="w-15 mx-auto mt-3" src={logo} alt="logo" />
-      </Link>
+
       {/* Инпут username */}
 
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col max-w-[500px] items-center mt-[125px] px-5 gap-3 mx-auto'>
-        <h1 className='w-fit font-bold text-4xl mb-5'>Авторизация</h1>
+        <Link className='' to={'/'}>
+          <div className="w-15 mx-auto mb-16">{LogoSvg}</div>
+        </Link>
+        <h1 className='w-fit font-bold text-3xl mb-5'>Авторизация</h1>
 
         <input {...register("username", {
           required: "Поле обязательно к заполнению"
