@@ -58,8 +58,11 @@ export interface IProductPageInfo {
 
 export interface IToyInCart {
     amount: number,
-    toy: IToyInCartToy
-    total_price: number
+    toy: IToyInCartToy,
+    total: number,
+    photos:{
+        image_url: string
+    }
 }
 
 export interface IToyInCartToy {
@@ -99,3 +102,30 @@ export interface IReviewData {
     toy: number | undefined,
     user: number
 }
+
+export interface IUserOrderItem{
+    category:number,
+    cost: number,
+    description: string,
+    id: number,
+    is_published: boolean,
+    reviews: IReview[],
+    slug: string,
+    title: string
+}
+
+export interface IUserOrder{
+    id: number,
+    items: IUserOrderItem[],
+    status: string,
+    total_price: number
+}
+
+export interface IUserInfoProfile{
+    id: number,
+    user:string,
+    country: string,
+    town:string,
+    date_joined: string,
+}
+

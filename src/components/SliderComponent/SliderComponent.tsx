@@ -18,7 +18,7 @@ const Slider = ({ slides }) => {
       {slides && slides.map((slide, idx) => (
         <div key={idx}>
           <SwiperSlide >
-            <img src={slide.image_url} alt={`Slide ${idx}`} width={100} height={100} />
+            <img src={slide.image_url} alt={`Slide ${idx}`} width={100} height={100}  />
           </SwiperSlide>
         </div>
       ))}

@@ -41,6 +41,13 @@ body{
   font-weight: 300;
 }
 
+.default-input:disabled{
+  border: 1px solid rgb(193, 193, 193);
+  padding: 16px;
+  border-radius: 10px;
+  font-weight: 300;
+}
+
 .text-limit {
   display: -webkit-box;
   -webkit-line-clamp: 2; /* Установите количество строк, которые хотите отобразить */

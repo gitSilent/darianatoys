@@ -23,7 +23,7 @@ export default function Products() {
       })
       .catch(data => {
         toast.error(data.response.data, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,

@@ -4,17 +4,67 @@ import { useNavigate } from 'react-router-dom'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import OrderCard from '../../components/OrderCard/OrderCard'
+import { useEffect, useState } from 'react'
+import { authCheck } from '../../services/api/authorization'
+import { ITokenInfoDecoded, IUserInfoProfile, IUserOrder } from '../../types/types'
+import { getProfileInfo, setNewUserInfo } from '../../services/api/profile'
+import Loader from '../../components/Loader/Loader'
 
 export default function Profile() {
+  const [isLoading, setIsLoading] = useState(true)
+
+  const [userInfoFromToken, setUserInfoFromToken] = useState<ITokenInfoDecoded>()
+  const [userInfoFromReq, setUserInfoFromReq] = useState<IUserInfoProfile>()
+  const [userOrders, setUserOrders] = useState<IUserOrder[]>()
+
+  const [countryInput, setCountryInput] = useState<string>("")
+  const [cityInput, setCityInput] = useState<string>("")
 
   const navigate = useNavigate();
 
-  getPurchases(getPurchasesUrl)
-    .then((resp) => {
-      if (!resp) {
-        navigate('/authorization')
-      }
+  useEffect(()=>{
+
+    authCheck()
+    .then((response) => {
+        if (response) {
+            let accessToken = document.cookie.replace(/(?:(?:^|.*;\s*)access\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+            const tokenInfo = accessToken.split('.')[1]
+            const tokenInfoDecoded: ITokenInfoDecoded = JSON.parse(window.atob(tokenInfo))
+            setUserInfoFromToken(tokenInfoDecoded)
+
+        } else {
+            navigate('/authorization')
+        }
     })
+
+    //здесь приходят заказы пользователя
+    getPurchases(getPurchasesUrl)
+      .then((resp) => {
+        console.log(resp);
+        setUserOrders(resp.data)
+        setIsLoading(false)
+
+      })
+  },[])
+
+//получение информации о пользователе для личного кабинета
+  useEffect(()=>{
+    console.log(userInfoFromToken);
+    
+    if(userInfoFromToken){
+      getProfileInfo(userInfoFromToken.user_id)
+      .then((resp)=>{
+        console.log(resp);
+        setUserInfoFromReq(resp.data)
+
+        setCountryInput(resp.data.country)
+        setCityInput(resp.data.town)
+      })
+    }
+    
+  },[userInfoFromToken])
+
 
   function exitAccount() {
     let cookieAccess = `access=""; expires= Thu, 01 Jan 1970 00:00:00 GMT}`
@@ -26,43 +76,85 @@ export default function Profile() {
     navigate('/authorization')
   }
 
+  function applyChanges(){
+    setNewUserInfo(userInfoFromToken?.user_id, countryInput, cityInput)
+    .then((resp)=>{
+      console.log(resp);
+
+      if(userInfoFromToken){
+        getProfileInfo(userInfoFromToken.user_id)
+        .then((resp)=>{
+          setUserInfoFromReq(resp.data)
+  
+          setCountryInput(resp.data.country)
+          setCityInput(resp.data.town)
+        })
+      }
+      
+    })
+  }
 
   return (
     <div className='wrapper'>
       <Header />
+      {isLoading ? <Loader />
+            :
+            <>
       <main className='mainContainer'>
         <div className='xs:h-[78px] md:h-[115px]'></div>
 
         <h2 className='font-bold m-auto w-fit text-xl my-10'>Личные данные</h2>
         <div className='flex flex-col w-full px-5 gap-5 m-auto h-[100vh] lg:w-3/4 lg:max-w-3xl'>
-          <div className='flex flex-col gap-3 lg:flex-row justify-between lg:gap-10 items-center'>
-            <span className='block w-fit font-semibold text-xl'>Имя пользователя</span>
-            <input type="text" placeholder='' className='default-input w-full lg:w-[400px]' />
-          </div>
-
-          <div className='flex flex-col gap-3 lg:flex-row justify-between lg:gap-10 items-center'>
-            <span className='block w-fit font-semibold text-xl'>E-mail</span>
-            <input type="email" className='default-input w-full lg:w-[400px]' />
-          </div>
-
+         
           <div className='flex flex-col gap-3 lg:flex-row justify-between lg:gap-10 items-center'>
             <span className='block w-fit font-semibold text-xl'>Логин</span>
-            <input type="text" className='default-input w-full lg:w-[400px]' />
+            <input type="text" className='default-input w-full lg:w-[400px]' disabled={true} defaultValue={userInfoFromReq?.user} />
           </div>
+
+          <div className='flex flex-col gap-3 lg:flex-row justify-between lg:gap-10 items-center'>
+            <span className='block w-fit font-semibold text-xl'>Страна</span>
+            <input onChange={(e)=>{
+              setCountryInput(e.target.value)
+            }} 
+            type="email" className='default-input w-full lg:w-[400px]' disabled={false} defaultValue={userInfoFromReq?.country} />
+          </div>
+
+          <div className='flex flex-col gap-3 lg:flex-row justify-between lg:gap-10 items-center'>
+            <span className='block w-fit font-semibold text-xl'>Город</span>
+            <input onChange={(e)=>{
+              setCityInput(e.target.value)
+            }}  type="email" className='default-input w-full lg:w-[400px]' disabled={false} defaultValue={userInfoFromReq?.town}/>
+          </div>
+
+         
 
           <div className='flex flex-col gap-3 lg:flex-row justify-between lg:gap-10 items-center'>
             <span className='block w-fit font-semibold text-xl'>Пароль</span>
             <button className='px-5 py-3 bg-orange-500/50 font-semibold rounded-xl hover:bg-orange-500/70'>Сменить пароль</button>
           </div>
 
+            {
+              userInfoFromReq?.country !== countryInput || userInfoFromReq?.town !== cityInput 
+              ?
+                <button className='px-5 py-3 bg-green-500/50 font-semibold rounded-xl hover:bg-green-500/70' onClick={applyChanges}>Применить изменения</button>
+              :
+                <></>
+            }
           <button className='px-5 py-3 bg-red-500/50 font-semibold rounded-xl hover:bg-red-500/70' onClick={exitAccount}>Выйти</button>
 
           <h2 className='font-bold mx-auto w-fit text-xl lg:pt-16'>Мои заказы</h2>
 
-          <OrderCard />
+          {
+            userOrders?.map((item,idx)=>(
+              <OrderCard key={item.id} orderInfo={item}/>
+
+            ))
+          }
 
         </div>
       </main>
+      </>
+      }
       <Footer />
     </div>
   )

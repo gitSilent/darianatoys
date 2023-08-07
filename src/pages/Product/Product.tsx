@@ -54,7 +54,16 @@ export default function Product() {
             user: userInfoFromToken?.user_id,
             amount: 1
         }).then((response) => {
-            toast(response?.data?.responce)
+            toast.success(response?.data?.responce, {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              })
 
         }).catch((er: any) => {
             for (var key of Object.keys(er.response?.data)) {
@@ -76,7 +85,7 @@ export default function Product() {
             })
             .catch(data => {
                 toast.error(data.response.data, {
-                    position: "top-right",
+                    position: "top-center",
                     autoClose: 1000,
                     hideProgressBar: false,
                     closeOnClick: true,

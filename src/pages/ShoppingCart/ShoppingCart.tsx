@@ -3,6 +3,8 @@ import { getCart } from '../../services/api/cart'
 import { IToysInCart } from '../../types/types'
 import { useNavigate } from 'react-router-dom'
 import { textStyle } from '../../styles/style'
+import { putPurchase } from '../../services/api/purchases'
+import { ToastContainer, toast } from 'react-toastify'
 import CartItem from '../../components/CartItem/CartItem'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
@@ -15,6 +17,35 @@ export default function ShoppingCart() {
   const [toysInCart, setToysInCart] = useState<IToysInCart>()
   const navigate = useNavigate()
 
+  function placePurchase(){
+    putPurchase()
+    .then((resp)=>{
+      console.log(resp);
+      toast.success("Покупка успешно оформлена", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      getCart()
+      .then((response) => {
+        if (!response) {
+          navigate('/authorization')
+          return
+        }
+        console.log(response.data);
+        
+        setToysInCart(response.data)
+        setIsLoading(false)
+      })
+    })
+  }
+
   useEffect(() => {
 
     getCart()
@@ -23,6 +54,8 @@ export default function ShoppingCart() {
           navigate('/authorization')
           return
         }
+        console.log(response.data);
+        
         setToysInCart(response.data)
         setIsLoading(false)
       })
@@ -31,6 +64,7 @@ export default function ShoppingCart() {
 
   return (
     <div className='wrapper'>
+      <ToastContainer/>
       <Header />
       <main className='mainContainer'>
         <div className='justify-between'>
@@ -44,7 +78,7 @@ export default function ShoppingCart() {
                 {toysInCart?.items.length !== 0 ? toysInCart?.items.map((item, idx) => (
                   <CartItem
                     key={idx}
-                    img={""}
+                    img={item.photos.image_url}
                     toy={item.toy}
                     amount={item.amount}
                     toysInCart={toysInCart}
@@ -54,7 +88,7 @@ export default function ShoppingCart() {
                   <h3 className="mt-14 text-4xl mx-auto w-fit">Корзина пуста</h3>
                 }
                 {toysInCart?.items.length ? <span className='block mt-3 font-medium text-2xl w-fit m-auto'>Итого: {toysInCart?.total_price} р.</span> : <></>}
-                {toysInCart?.items.length ? <button className='block rounded-xl mt-5 py-3 px-8 text-xl w-fit bg-orange-500/50 m-auto hover:bg-orange-500/70'>Оформить заказ</button> : <></>}
+                {toysInCart?.items.length ? <button className='block rounded-xl mt-5 py-3 px-8 text-xl w-fit bg-orange-500/50 m-auto hover:bg-orange-500/70' onClick={placePurchase}>Оформить заказ</button> : <></>}
 
               </div>
 

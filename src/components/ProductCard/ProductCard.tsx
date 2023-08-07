@@ -36,7 +36,7 @@ export default function ProductCard({ category, slug, photos, description, cost,
     }).then((response) => {
 
       toast.success(response?.data?.responce, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -48,7 +48,7 @@ export default function ProductCard({ category, slug, photos, description, cost,
 
     }).catch((er: any) => {
       toast.error("Произошла ошибка", {
-        position: "top-right",
+        position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,

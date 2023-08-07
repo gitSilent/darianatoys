@@ -15,7 +15,7 @@ interface IProps {
     setToysInCart: Dispatch<SetStateAction<IToysInCart | undefined>>
 }
 
-export default function CartItem({ toy, amount, toysInCart, setToysInCart }: IProps) {
+export default function CartItem({ toy, amount, toysInCart, setToysInCart, img }: IProps) {
 
     const [userInfoFromToken, setUserInfoFromToken] = useState<ITokenInfoDecoded>()
     const navigate = useNavigate()
@@ -64,7 +64,7 @@ export default function CartItem({ toy, amount, toysInCart, setToysInCart }: IPr
             })
             .catch(res => {
                 toast.error("Произошла ошибка", {
-                    position: "top-right",
+                    position: "top-center",
                     autoClose: 1000,
                     hideProgressBar: false,
                     closeOnClick: true,
@@ -117,7 +117,7 @@ export default function CartItem({ toy, amount, toysInCart, setToysInCart }: IPr
 
         }).catch((er: any) => {
             toast.error("Произошла ошибка", {
-                position: "top-right",
+                position: "top-center",
                 autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -136,6 +136,7 @@ export default function CartItem({ toy, amount, toysInCart, setToysInCart }: IPr
             <div className='flex items-center justify-around xs:max-lg:flex-col xs:max-lg:gap-4'>
 
                 <Link to={`/product/?id=${toy.slug}`} className='cursor-pointer flex flex-col gap-2 hover:scale-[1.01] duration-150'>
+                    <img src={img} alt="" className='w-[180px]' />
                     <div>
                         <h3 className='font-bold text-lg xs:max-md:text-center'>{toy.title}</h3>
                     </div>
