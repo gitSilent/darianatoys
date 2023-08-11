@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+		<!--	created with www.mysitemapgenerator.com	-->
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>http://plush-toy.shop/</loc>
+	<lastmod>2023-08-12T00:04:29+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>http://plush-toy.shop/products</loc>
+	<lastmod>2023-08-12T00:04:29+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>http://plush-toy.shop/about</loc>
+	<lastmod>2023-08-12T00:04:29+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>http://plush-toy.shop/feedback</loc>
+	<lastmod>2023-08-12T00:04:29+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>http://plush-toy.shop/cart</loc>
+	<lastmod>2023-08-12T00:04:29+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>http://plush-toy.shop/profile</loc>
+	<lastmod>2023-08-12T00:04:29+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>http://plush-toy.shop/authorization</loc>
+	<lastmod>2023-08-12T00:04:29+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>http://plush-toy.shop/registration</loc>
+	<lastmod>2023-08-12T00:04:29+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+</urlset>
