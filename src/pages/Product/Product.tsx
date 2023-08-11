@@ -98,7 +98,7 @@ export default function Product() {
 
                                     <div className='lg:min-w-[400px]'>
                                         <div className='flex flex-col items-center sm:justify-between md:flex-col md:justify-between gap-5 max-w-[550px] '>
-                                            <h3 className='font-bold text-2xl mb-3'>{toy?.slug}</h3>
+                                            <h3 className='font-bold text-2xl mb-3'>{toy?.title}</h3>
                                             <p className=''>{toy?.description}</p>
                                             <span className='block p-3 border border-black/10 w-fit rounded-xl font-semibold text-xl mb-5 whitespace-nowrap'>{toy?.cost} р.</span>
                                         </div>
