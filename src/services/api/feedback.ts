@@ -1,5 +1,5 @@
 import { IFeedbackData } from '../../types/types'
-import { sendFeedbackUrl } from './urls'
+import { getFeedbackUrl, sendFeedbackUrl } from './urls'
 import { instance } from '../interceptor'
 
 export async function sendFeedback(data:IFeedbackData){  
@@ -8,4 +8,8 @@ export async function sendFeedback(data:IFeedbackData){
             ...data
           }
     )
+}
+
+export async function getFeedback() {
+  return await instance.get(getFeedbackUrl)
 }

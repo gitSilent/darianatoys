@@ -45,7 +45,7 @@ export default function About() {
             return (
               <div key={idx}>
                 <div className='flex flex-col items-center lg:flex-row lg:gap-9 lg:max-w-6xl lg:m-auto'>
-                  <img src={item.img} alt="" />
+                  <img src={item.img} alt="" className="w-[410px]"/>
                   <div className='flex flex-col items-center gap-5'>
                     <h3 className='font-bold uppercase xs:text-xl sm:text-2xl'>{item.title}</h3>
                     <p className='font-light xs:text-lg sm:text-xl mb-10 text-gray-800'>{item.desc}</p>

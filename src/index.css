@@ -31,7 +31,7 @@ html,body{
 
 body{
   min-width: 280px;
-  max-width: 1920px;
+  max-width: 2100px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -59,7 +59,7 @@ body{
   text-overflow: ellipsis;
 }
 
-button:hover{
+button:hover:enabled{
   transform: scale(101%);
   transition-duration: 250ms;
 }

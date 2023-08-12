@@ -58,7 +58,7 @@ export default function Main() {
 
         <span className={textStyle.titlesText}>Наши работы</span>
 
-        <div className='flex flex-wrap flex-col items-center px-3 gap-9 md:flex-row md:m-auto md:justify-center max-w-5xl'>
+        <div className='flex flex-wrap flex-col items-center px-3 gap-9 lg:flex-row lg:m-auto lg:justify-start max-w-5xl'>
 
           {toys?.slice(0, 6).map((item, idx) => {
             return <MainImage

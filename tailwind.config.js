@@ -4,13 +4,14 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}"
   ],
   theme: {
-    fontFamily:{
-      OpenSansRegular:['Prompt', 'sans-serif']
+    fontFamily: {
+      OpenSansRegular: ['Prompt', 'sans-serif']
     },
     screens: {
-      xs:"300px",
+      xs: "300px",
       sm: '480px',
       sl: '600px',
+      mx: '660px',
       md: '768px',
       lg: '976px',
       lx: '1040px',

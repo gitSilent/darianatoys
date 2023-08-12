@@ -3,18 +3,48 @@ import { sendFeedback } from '../../services/api/feedback';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { authCheck } from '../../services/api/authorization';
-import { IFeedbackData, ITokenInfoDecoded } from '../../types/types';
+import { IFeedbackData, ITokenInfoDecoded, IUserInfoProfile } from '../../types/types';
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import { toastifyErrorParams, toastifyNotificationParams } from '../../services/toastParametres';
+import { useEffect, useState } from 'react';
+import { getProfileInfo } from '../../services/api/profile';
 
 export default function Feedback() {
   const navigate = useNavigate()
+  
+  // const [userInfoFromToken, setUserInfoFromToken] = useState<ITokenInfoDecoded>()
+  const [userInfoFromReq, setUserInfoFromReq] = useState<IUserInfoProfile>()
+
+  const [isAuthorized, setIsAuthorized] = useState(false)
 
   const { register, formState: { errors }, reset, handleSubmit } = useForm({
     mode: 'onBlur'
   });
 
+  useEffect(() => {
+    authCheck()
+    .then((response) => {
+        if (response) {
+            let accessToken = document.cookie.replace(/(?:(?:^|.*;\s*)access\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+            const tokenInfo = accessToken.split('.')[1]
+            const tokenInfoDecoded: ITokenInfoDecoded = JSON.parse(window.atob(tokenInfo))
+
+            getProfileInfo(tokenInfoDecoded.user_id)
+            .then((resp)=>{
+              setUserInfoFromReq(resp.data)
+              console.log(resp.data);
+              
+            })
+            setIsAuthorized(true)
+
+        } else {
+            setIsAuthorized(false)
+        }
+    })
+  }, [])
+  
   function onSubmit(data: any) {
     authCheck()
       .then((response) => {
@@ -25,9 +55,20 @@ export default function Feedback() {
 
           const tokenInfo = accessToken.split('.')[1]
           const tokenInfoDecoded: ITokenInfoDecoded = JSON.parse(window.atob(tokenInfo))
-          const newData: IFeedbackData = {
-            ...data,
-            user: tokenInfoDecoded.user_id
+          
+          let newData: IFeedbackData;
+          
+          // if(userInfoFromReq){
+          //   newData = {
+          //     ...data,
+          //     user: tokenInfoDecoded.user_id,
+          //     email: userInfoFromReq.email
+          //   }
+          // }else{
+            newData = {
+              ...data,
+              user: tokenInfoDecoded.user_id
+            // }
           }
           //отправка обращения
           sendFeedback(newData)
@@ -47,6 +88,7 @@ export default function Feedback() {
               }
             })
 
+
         } else {
           //если у пользователя истек refresh токен, то выполняется переход на страницу авторизации
           navigate('/authorization')
@@ -65,13 +107,19 @@ export default function Feedback() {
           <form onSubmit={handleSubmit(onSubmit)} className='mt-11 px-3 flex flex-col gap-3 items-center lg:flex-col lg:gap-3 lg:items-center'>
           <h2 className='pt-8 font-bold m-auto w-fit xs:text-3xl sm:text-4xl lg:pt-16 mb-7'>Свяжитесь с нами</h2>
 
-            <input {...register("email", {
-              required: "Поле обязательно к заполнению",
+            {!isAuthorized ? 
+              <>
+                <input {...register("email", {
+                  required: "Поле обязательно к заполнению",
+                }
+                )} type="text" placeholder='E-mail' className='default-input min-w-[230px] max-w-[600px] w-full' maxLength={100} />
+                <span className='text-red-600'>
+                  {errors?.email && errors?.email?.message?.toString()}
+                </span>
+              </>
+              :
+              <></>
             }
-            )} type="text" placeholder='E-mail' className='default-input min-w-[230px] max-w-[600px] w-full' maxLength={100} />
-            <span className='text-red-600'>
-              {errors?.email && errors?.email?.message?.toString()}
-            </span>
 
             <input {...register("message", {
               required: "Поле обязательно к заполнению",

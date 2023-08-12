@@ -18,6 +18,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { toastifyErrorParams, toastifySuccessParams } from '../../services/toastParametres'
+import { StarIcon } from '@heroicons/react/24/solid'
 
 
 export default function Product() {
@@ -83,7 +84,6 @@ export default function Product() {
 
     return (
         <div className='wrapper'>
-            <ModalReview active={modalActive} setActive={setModalActive} toy={toy} />
             <Header />
             <main className='xs:mt-[6rem] lg:mt-[11rem] mainContainer'>
                 {isLoading ? <Loader />
@@ -120,14 +120,24 @@ export default function Product() {
                             <hr />
                             <div className='flex flex-col my-10 pb-20 mx-3'>
                                 <div className='flex-col gap-4 flex mb-8 items-center md:flex-row md:justify-between'>
-                                    <span className='block text-xl font-semibold'>Отзывы</span>
-                                    <button onClick={() => { setModalActive(true) }} className='px-5 py-3 w-full max-w-[200px] whitespace-nowrap bg-orange-500/50 font-semibold rounded-xl hover:bg-orange-500/70'>Оставить отзыв</button>
+                                    <div className="flex items-center gap-3">
+                                        <span className='block text-xl font-semibold'>Отзывы</span>
+                                        {toy?.overall_rating !== 0 ?
+                                            <div className="flex items-center">
+                                                <StarIcon className='xs:w-6 md:w-8  text-yellow-400' />
+                                                <p className=' text-xl'>{toy?.overall_rating}</p>
+                                            </div>
+
+                                            : <div className='flex items-center'>
+                                                <StarIcon className='xs:w-6 md:w-8  text-yellow-500 opacity-40' />
+                                                <p className=' text-xl'>{toy?.overall_rating}</p>
+                                            </div>}
+                                    </div>
                                 </div>
                                 <div className='flex flex-col gap-5'>
-
-                                    {toy?.reviews.map((item, idx) => (
-                                        <Review description={item.description} username={item.username} title={item.title} key={idx}/>
-                                    ))}
+                                    {toy?.reviews.length ?
+                                        toy?.reviews.map((item, idx) => (<Review description={item.description} user={item.user} title={item.title} key={idx} rating={item.rating} id={item.id} toy={item.toy} />))
+                                        : <p className='text-xl text-center'>Нет оценок</p>}
                                 </div>
                             </div>
                         </div>

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 import { registerUser } from '../../services/api/registration';
 import { ToastContainer, toast } from 'react-toastify';
-import { LogoSvg } from '../../media/svgIcons';
+import { LogoSvg, arrowBack } from '../../media/svgIcons';
 import 'react-toastify/dist/ReactToastify.css';
 import { toastifyErrorParams } from '../../services/toastParametres';
 
@@ -39,6 +39,9 @@ export default function Registration() {
 
   return (
     <div>
+      <div onClick={()=>{navigate('/')}} className="w-10 h-10 absolute top-4 left-3 lg:top-5 lg:left-5 " >
+        {arrowBack}
+      </div>
       <ToastContainer />
 
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col max-w-[500px] items-center mt-[125px] px-5 gap-3 md:w-[500px] mx-auto'>

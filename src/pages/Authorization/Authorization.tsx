@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import { authUser } from '../../services/api/authorization';
 import { addMinutes } from '../../services/serviceFuncs/addMinutes';
-import { LogoSvg } from '../../media/svgIcons';
+import { LogoSvg, arrowBack } from '../../media/svgIcons';
 import { toastifyErrorParams, toastifyNotificationParams } from '../../services/toastParametres';
 
 
@@ -51,6 +51,9 @@ export default function Authorization() {
 
   return (
     <div className=''>
+      <div onClick={()=>{navigate('/')}} className="w-10 h-10 absolute top-4 left-3 lg:top-5 lg:left-5 " >
+        {arrowBack}
+      </div>
       <ToastContainer />
 
       {/* Инпут username */}

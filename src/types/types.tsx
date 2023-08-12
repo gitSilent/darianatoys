@@ -35,9 +35,13 @@ export interface IProductToCart {
 }
 
 export interface IReview {
-    description: string,
+    id:number,
     title: string,
-    username: string
+    description: string,
+    rating:number,
+    toy: number,
+    user: number,
+
 }
 
 export interface IProductPageInfo {
@@ -46,7 +50,7 @@ export interface IProductPageInfo {
         name: string,
         slug: string
     },
-    id:number,
+    id: number,
     cost: number,
     description: string,
     overall_rating: number,
@@ -60,9 +64,7 @@ export interface IToyInCart {
     amount: number,
     toy: IToyInCartToy,
     total: number,
-    photos:{
-        image_url: string
-    }
+    photos: IPhotosArr[]
 }
 
 export interface IToyInCartToy {
@@ -96,15 +98,15 @@ export interface ITokenInfoDecoded {
 }
 
 export interface IReviewData {
-    title: string,
+    title?: string,
     description: string
     rating: number,
     toy: number | undefined,
-    user: number
+    user: number | undefined
 }
 
-export interface IUserOrderItem{
-    category:number,
+export interface IUserOrderToy {
+    category: number,
     cost: number,
     description: string,
     id: number,
@@ -114,18 +116,37 @@ export interface IUserOrderItem{
     title: string
 }
 
-export interface IUserOrder{
+export interface IUserOrder {
     id: number,
     items: IUserOrderItem[],
     status: string,
     total_price: number
 }
 
-export interface IUserInfoProfile{
+export interface IPhotosArr {
+    image_url: string
+}
+export interface IUserOrderItem {
+    amount: number,
+    photos: IPhotosArr[],
     id: number,
-    user:string,
+    in_cart: boolean,
+    total: number,
+    toy: IUserOrderToy
+}
+
+export interface IUserInfoProfile {
+    id: number,
+    user: string,
     country: string,
-    town:string,
+    town: string,
     date_joined: string,
+}
+
+export interface IUserFeedback {
+    email: string,
+    message: string,
+    status: string,
+    user: number
 }
 

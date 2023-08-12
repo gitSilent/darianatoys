@@ -18,21 +18,21 @@ export default function ShoppingCart() {
   const [toysInCart, setToysInCart] = useState<IToysInCart>()
   const navigate = useNavigate()
 
-  function placePurchase(){
+  function placePurchase() {
     putPurchase()
-    .then((resp)=>{
-      toast.success("Покупка успешно оформлена", toastifySuccessParams);
+      .then((resp) => {
+        toast.success("Заказ успешно оформлен", toastifySuccessParams);
 
-      getCart()
-      .then((response) => {
-        if (!response) {
-          navigate('/authorization')
-          return
-        }
-        setToysInCart(response.data)
-        setIsLoading(false)
+        getCart()
+          .then((response) => {
+            if (!response) {
+              navigate('/authorization')
+              return
+            }
+            setToysInCart(response.data)
+            setIsLoading(false)
+          })
       })
-    })
   }
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function ShoppingCart() {
 
   return (
     <div className='wrapper'>
-      <ToastContainer/>
+      <ToastContainer />
       <Header />
       <main className='mainContainer'>
         <div className='justify-between'>
@@ -65,7 +65,7 @@ export default function ShoppingCart() {
                 {toysInCart?.items.length !== 0 ? toysInCart?.items.map((item, idx) => (
                   <CartItem
                     key={idx}
-                    img={item.photos.image_url}
+                    img={item.photos[0].image_url}
                     toy={item.toy}
                     amount={item.amount}
                     toysInCart={toysInCart}

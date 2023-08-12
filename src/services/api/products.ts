@@ -4,17 +4,18 @@ import { IReviewData } from "../../types/types"
 import axios from "axios"
 
 
-export async function getProducts(url:string) {
+export async function getProducts(url: string) {
    return axios.get(url)
-} 
+}
 
-export async function retriveProduct(url:string, profuctId:string | null) {
-    return axios.get(url + profuctId + "/")
-} 
+export async function retriveProduct(url: string, profuctId: string | null) {
+   return axios.get(url + profuctId + "/")
+}
 
-export async function sendReview(slug:string | undefined, data:IReviewData) {
-   
-   return instance.put(`${sendReviewUrl}${slug}/`,{
+export async function sendReview(slug: string | undefined, data: IReviewData) {
+   console.log(data);
+
+   return instance.put(`${sendReviewUrl}${slug}/`, {
       ...data
    })
 }
